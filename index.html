@@ -154,6 +154,53 @@
 <!-- Stile CSS per il carosello delle polaroid -->
 <style>
 
+/* Stile per il biglietto d'auguri interattivo */
+.biglietto-container {
+  background: #fffdf9;
+  border: 3px dashed var(--oro);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.biglietto-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+.biglietto-icona {
+  font-size: 38px;
+  display: block;
+  margin-bottom: 8px;
+}
+.biglietto-cover h3 {
+  color: var(--rosso);
+  font-size: 18px;
+}
+.biglietto-interno {
+  display: none;
+  text-align: left;
+  font-family: 'Courier New', monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+  animation: fadeIn 0.4s ease;
+}
+.biglietto-interno h3 {
+  color: var(--rosso);
+  margin-bottom: 12px;
+  text-align: center;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
@@ -427,14 +474,33 @@ html {
 <section id="regalo">
   <h2>🎁 Il Regalo è top secret!</h2>
   <p class="sotto" id="cd-testo">Il regalo di compleanno è ancora oscurato. Dovrai aspettare l'arrivo di Stella il 19/12!</p>
-  <div class="regalo-box" id="regalo-box">
+  
+  <!-- BIGLIETTO INTERATTIVO -->
+  <div class="biglietto-container" id="biglietto-container" onclick="apriBiglietto()">
+    <div class="biglietto-cover" id="biglietto-cover">
+      <span class="biglietto-icona">💌</span>
+      <h3>Un biglietto speciale per te...</h3>
+      <p style="font-size: 13px; color: #666; margin-top: 6px;">(Clicca per aprire)</p>
+    </div>
+    <div class="biglietto-interno" id="biglietto-interno">
+      <h3>💌 Buon Compleanno Amore mio!</h3>
+      <p>
+        Quest'anno non potendo essere insieme ho deciso di fare qualcosa di speciale che ti avrebbe fatto ridere, io ho riso tanto nel farlo ahahah ma sarebbe bello svilupparlo ulteriormente! Si accettano idee! Questo è il progetto su GitHub: <a href="https://github.com/mariastella1502/SuperLoris.git" target="_blank" style="color:var(--rosso); font-weight:bold;">SuperLoris su GitHub</a><br><br>
+        Mi manchi ogni giorno e vorrei fossi qui per festeggiare insieme, ma presto lo saremo ❤️ nel frattempo il regalo è segreto, ma puoi giocare con questo giochino che unisce i tuoi giochi preferiti. Ti ho dedicato una playlist e delle foto carine così anche tu penserai a me oggi!<br><br>
+        Divertiti amore mio e spero tu possa passare una giornata stupenda.<br><br>
+        Con amore,<br>
+        <b>Gnella</b>
+      </p>
+      <button class="btn" style="margin-top: 15px; padding: 6px 16px; font-size: 13px;" onclick="event.stopPropagation(); chiudiBiglietto()">✖ Chiudi biglietto</button>
+    </div>
+  </div>
+
+  <div class="regalo-box" id="regalo-box" style="margin-top: 25px;">
     <span class="lucchetto" id="lucchetto-icon">🔒</span>
     <div class="regalo-segreto">
-      <!-- Sostituisci "URL_DELLA_TUA_IMMAGINE" con il percorso o il link dell'immagine degli occhiali -->
       <img src="https://images2.ray-ban.com//prod-onecp-record-files/pieyewear/0ceb82a5-3ebd-4eae-bbd3-b35d00d748f9/0RB3183__002_81_030A.png?impolicy=RB_Product_clone&width=1440&bgc=%23f2f2f2" alt="Regalo segreto">
       <p style="margin-top: 10px; font-weight: bold;">😎 Nuovi occhiali da sole Ray-Ban!</p>
     </div>
-    <!-- Il pulsante parte disattivato finché il countdown non arriva a zero -->
     <button class="btn" id="btn-sblocca" onclick="rivelaRegalo()" disabled>🔓 Sblocca il regalo</button>
   </div>
 </section>
@@ -1455,6 +1521,18 @@ caricaLivello(0);
 draw();
 </script>
 <script>
+  function apriBiglietto() {
+  document.getElementById('biglietto-cover').style.display = 'none';
+  document.getElementById('biglietto-interno').style.display = 'block';
+  document.getElementById('biglietto-container').style.cursor = 'default';
+}
+
+function chiudiBiglietto() {
+  document.getElementById('biglietto-interno').style.display = 'none';
+  document.getElementById('biglietto-cover').style.display = 'block';
+  document.getElementById('biglietto-container').style.cursor = 'pointer';
+}
+
   document.addEventListener("DOMContentLoaded", function() {
   
       const immagini = document.querySelectorAll(
