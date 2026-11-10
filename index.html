@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tanti Auguri Gnogni 🎮 27 anni</title>
+<style>
+  :root{ --rosso:#e52521; --blu:#2e3d5c; --verde:#4a7c59; --oro:#f7c948; --crema:#fff8ec; --notte:#141824; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Trebuchet MS",Verdana,sans-serif;background:var(--crema);color:#333}
+  h1,h2,h3{font-family:"Courier New",monospace}
+  nav{position:sticky;top:0;z-index:50;background:var(--rosso);display:flex;gap:4px;flex-wrap:wrap;padding:10px 16px;box-shadow:0 3px 10px rgba(0,0,0,.25)}
+  nav a{color:#fff;text-decoration:none;font-weight:bold;font-family:"Courier New",monospace;padding:6px 12px;border-radius:8px;font-size:14px}
+  nav a:hover{background:rgba(255,255,255,.2)}
+  header{background:linear-gradient(180deg,#141824 0%,#2b1a3d 60%,#e52521 130%);color:#fff;text-align:center;padding:70px 20px 60px;position:relative;overflow:hidden}
+  header h1{font-size:clamp(26px,5vw,52px);text-shadow:3px 3px 0 var(--rosso);letter-spacing:2px}
+  header p{font-size:clamp(15px,2.4vw,22px);margin-top:14px;color:#ffe9a8}
+  .contatore{display:flex;justify-content:center;gap:14px;margin-top:28px;flex-wrap:wrap}
+  .contatore div{background:rgba(255,255,255,.1);border:2px solid var(--oro);border-radius:12px;padding:10px 16px;min-width:80px}
+  .contatore b{display:block;font-size:28px;color:var(--oro)}
+  .stella-cadente{position:absolute;font-size:20px;animation:tw 2s infinite}
+  @keyframes tw{0%,100%{opacity:.2}50%{opacity:1}}
+  section{padding:60px 20px;max-width:1050px;margin:0 auto}
+  section h2{font-size:clamp(24px,4vw,38px);text-align:center;margin-bottom:8px;color:var(--rosso)}
+  .sotto{text-align:center;color:#777;margin-bottom:36px;font-style:italic}
+  #gioco{max-width:1000px}
+  .game-wrap{position:relative;border:6px solid #222;border-radius:14px;overflow:hidden;background:#87ceeb;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+  canvas{display:block;width:100%;image-rendering:auto}
+  .hud{position:absolute;top:8px;left:10px;right:10px;display:flex;justify-content:space-between;pointer-events:none;font-family:"Courier New",monospace;font-weight:bold;color:#fff;text-shadow:2px 2px 0 #000;font-size:18px;gap:8px}
+  #hud-musica{pointer-events:auto;cursor:pointer}
+  .overlay{position:absolute;inset:0;background:rgba(10,10,20,.9);display:none;align-items:center;justify-content:center;flex-direction:column;color:#fff;text-align:center;padding:20px;z-index:5}
+  .overlay.mostra{display:flex}
+  .overlay h3{font-size:clamp(20px,3vw,30px);margin-bottom:12px;color:var(--oro)}
+  .overlay p{margin-bottom:14px;line-height:1.55;max-width:640px}
+  .btn{background:var(--rosso);color:#fff;border:none;padding:12px 28px;font-size:17px;border-radius:10px;cursor:pointer;font-weight:bold;font-family:"Courier New",monospace;box-shadow:0 4px 0 #8f1414;transition:transform .1s}
+  .btn:hover{transform:translateY(-2px)}
+  .comandi{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:18px;color:#555;font-size:14px}
+  .comandi b{color:var(--rosso)}
+  .touch{display:none;justify-content:space-between;margin-top:10px}
+  .touch button{flex:1;margin:0 6px;padding:16px;font-size:22px;border-radius:12px;border:3px solid #222;background:#fff;cursor:pointer;user-select:none}
+  @media (pointer:coarse){.touch{display:flex}}
+  .galleria{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px}
+  .polaroid{background:#fff;padding:14px 14px 46px;border-radius:6px;box-shadow:0 8px 20px rgba(0,0,0,.18);transform:rotate(-2deg);transition:transform .25s;position:relative}
+  .polaroid:nth-child(2n){transform:rotate(2.5deg)}
+  .polaroid:hover{transform:rotate(0) scale(1.04);z-index:2}
+  .polaroid img{width:100%;border-radius:3px;display:block;min-height:180px;background:linear-gradient(135deg,#2b1a3d,#e52521)}
+  .polaroid span{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-family:"Courier New",monospace;color:#555;font-size:15px}
+  .nastro{position:absolute;top:-12px;left:50%;transform:translateX(-50%) rotate(-3deg);background:rgba(247,201,72,.85);padding:4px 26px;font-size:12px;font-family:"Courier New",monospace;font-weight:bold;box-shadow:0 2px 5px rgba(0,0,0,.2)}
+  #playlist{background:linear-gradient(180deg,#f3e9ff,#e7f0ff);max-width:100%;border-top:4px dashed #b79ced;border-bottom:4px dashed #b79ced}
+  #playlist .inner{max-width:800px;margin:0 auto}
+  .spotify-box{background:#fff;border-radius:16px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+  .canzoni{list-style:none;margin-top:20px}
+  .canzoni li{background:#fff;margin:8px 0;padding:12px 16px;border-radius:10px;border-left:6px solid var(--rosso);display:flex;gap:12px;align-items:center;box-shadow:0 3px 8px rgba(0,0,0,.08)}
+  .canzoni .nota{font-size:22px}
+  #regalo{max-width:700px}
+  .regalo-box{position:relative;background:repeating-linear-gradient(45deg,#222,#222 12px,#2e2e2e 12px,#2e2e2e 24px);border:4px solid var(--oro);border-radius:18px;padding:50px 30px;text-align:center;overflow:hidden}
+  .regalo-segreto{filter:blur(22px);transition:filter 1.4s ease;font-size:26px;color:#fff;font-family:"Courier New",monospace;line-height:1.6}
+  .regalo-box.rivelato .regalo-segreto{filter:blur(0)}
+  .regalo-box .btn{margin-top:20px}
+  .lucchetto{position:absolute;top:14px;right:16px;font-size:26px;transition:opacity .6s}
+  .regalo-box.rivelato .lucchetto{opacity:0}
+  footer{background:var(--notte);color:#bbb;text-align:center;padding:34px 20px;font-family:"Courier New",monospace}
+  footer b{color:var(--oro)}
+  #confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:99;display:none}
+  #yt-music{position:absolute;left:-9999px;top:0;width:1px;height:1px}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#top">🏰 Home</a>
+  <a href="#gioco">🎮 Il Gioco</a>
+  <a href="#galleria">📸 Galleria</a>
+  <a href="#playlist">🎵 Playlist</a>
+  <a href="#regalo">🎁 Regalo</a>
+</nav>
+
+<header id="top">
+  <div class="stella-cadente" style="top:20px;left:12%">✦</div>
+  <div class="stella-cadente" style="top:60px;right:15%;animation-delay:.7s">✦</div>
+  <div class="stella-cadente" style="top:110px;left:30%;animation-delay:1.2s">✦</div>
+  <h1>🎉 HAPPEE BIRTHDAE LORIS! 🎉</h1>
+  <p>Il tuo regalo si sbloccherà il 19/12/2027!</p>
+  <div class="contatore">
+    <div><b id="cd-g">0</b>giorni</div>
+    <div><b id="cd-h">0</b>ore</div>
+    <div><b id="cd-m">0</b>minuti</div>
+    <div><b id="cd-s">0</b>secondi</div>
+  </div>
+  <p style="margin-top:26px"><a href="#gioco" class="btn" style="text-decoration:none;display:inline-block">▶ Inizia l'avventura</a></p>
+</header>
+
+<section id="gioco">
+  <h2>🎮 L'Avventura di Loris</h2>
+  <p class="sotto">Dal Regno dei Funghi alla neve, dalle lande di Pokémon fino al castello di Voldemort: salva la Principessa Stella!</p>
+  <div class="game-wrap">
+    <canvas id="game" width="960" height="540"></canvas>
+    <div id="yt-music"></div>
+    <div class="hud">
+      <span id="hud-vite">❤️❤️❤️</span>
+      <span id="hud-livello"></span>
+      <span><span id="hud-monete">🪙 0</span> <span id="hud-baci">💋 0</span> <span id="hud-musica" title="Musica on/off" onclick="toggleMusica()">🎵</span></span>
+    </div>
+    <div class="overlay mostra" id="ov-start">
+      <h3>🍄 SUPER LORIS BROS.</h3>
+      <p>Usa <b>← →</b> (o A / D) per muoverti e <b>Spazio</b> per saltare.<br>
+      Schiaccia i nemici saltandogli sopra, raccogli monete e baci 💋 di Stella<br>
+      ma attenzione ai burroni! Se perdi tutte e 3 le vite ricominci da capo!<br>
+      (La musica di sottofondo parte con START — altrimenti tocca 🎵)</p>
+      <button class="btn" onclick="startGioco()">▶ START</button>
+    </div>
+    <div class="overlay" id="ov-livello">
+      <h3 id="ov-livello-titolo"></h3>
+      <p id="ov-livello-testo"></p>
+      <button class="btn" onclick="prossimoLivello()">Continua ▶</button>
+    </div>
+    <div class="overlay" id="ov-gameover">
+      <h3>💀 GAME OVER</h3>
+      <p>Anche Harry ha perso più volte prima di vincere… si ricomincia dall'inizio!</p>
+      <button class="btn" onclick="restart()">🔄 Riprova dal Livello 1</button>
+    </div>
+    <div class="overlay" id="ov-riddle">
+      <h3>⚡ IL DUELLO FINALE ⚡</h3>
+      <p>Voldemort ha imprigionato Stella in una gabbia d'oro nel castello.<br>
+      Lui <b>salta</b> e <b>lancia incantesimi urlando "Avada Kedavra!"</b>: schivali con tutte le tue forze!<br><br>
+      <i>«Per sconfiggerlo non dovrai altro che dire l'incantesimo giusto ad alta voce!»</i><br><br></p>
+      <p id="mic-msg" style="color:var(--oro);min-height:20px"></p>
+      <button class="btn" onclick="entraNelCastello()">🎤 Attiva il microfono e sfida Voldemort</button>
+    </div>
+    <div class="overlay" id="ov-win">
+      <h3>👑 STELLA È SALVA! 👑</h3>
+      <p style="font-size:18px;max-width:560px">
+        🎂 <b style="color:var(--oro)">BUON 27° COMPLEANNO, LORIS!</b> 🎂<br><br>
+        Hai sconfitto il Signore Oscuro, esattamente come nella vita:
+        coraggioso, sorprendente e sempre con un sorriso.<br><br>
+        Che questo nuovo anno ti porti viaggi incredibili, nuove esperienze e tante soddisfazioni!<br><br>
+        La tua Principessa Stella ti ama. 💛<br>
+        <span id="win-monete"></span>
+      </p>
+      <button class="btn" onclick="restart()">🔄 Gioca ancora</button>
+    </div>
+  </div>
+  <div class="touch">
+    <button id="t-left">◀</button>
+    <button id="t-jump">⬆ SALTA</button>
+    <button id="t-right">▶</button>
+  </div>
+  <div class="comandi">
+    <span><b>← →</b> muovi</span><span><b>Spazio / ↑</b> salta</span>
+    <span><b>M</b> audio on/off</span><span>
+  </div>
+</section>
+
+<!-- Stile CSS per il carosello delle polaroid -->
+<style>
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+
+}
+
+  .galleria-container {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 45px;
+  }
+  .galleria {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding: 20px 10px;
+    scrollbar-width: none; /* Nasconde la barra di scorrimento su Firefox */
+  }
+  .galleria::-webkit-scrollbar {
+    display: none; /* Nasconde la barra di scorrimento su Chrome/Safari */
+  }
+  .polaroid {
+    flex: 0 0 220px;
+    background: #fff;
+    padding: 12px 12px 20px 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    text-align: center;
+    transform: rotate(calc(-2deg + 4deg * var(--r, 0.5)));
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .polaroid:hover {
+    transform: scale(1.03) rotate(0deg);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    z-index: 10;
+  }
+  .polaroid img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+  .polaroid span {
+    display: block;
+    margin-top: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #333;
+  }
+  .polaroid .data-foto {
+    font-size: 11px;
+    color: #777;
+    margin-top: 4px;
+    font-family: 'Courier New', monospace;
+  }
+  /* Pulsanti di scorrimento del carosello */
+  .carosello-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    transition: background 0.2s;
+  }
+  .carosello-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  .carosello-btn.prev { left: 0px; }
+  .carosello-btn.next { right: 0px; }
+</style>
+
+<!-- POPUP GALLERIA -->
+<div class="lightbox" id="lightbox" onclick="chiudiLightbox()">
+
+  <button class="lightbox-close"
+          onclick="chiudiLightbox()">
+      &times;
+  </button>
+
+  <img id="lightbox-img" src="" alt="Foto ingrandita">
+
+</div>
+
+<section id="galleria">
+  <h2>📸 La Nostra Galleria</h2>
+  <p class="sotto">Alcuni dei nostri momenti preferiti</p>
+
+  <div class="galleria-container">
+    <button class="carosello-btn prev" onclick="scorriGalleria(-1)">&#10094;</button>
+
+    <div class="galleria" id="track-galleria">
+
+      <!-- Foto aggiornate da Google Drive -->
+      <div class="polaroid" style="--r: 0.2;"><img src="https://lh3.googleusercontent.com/d/1RGug2uRRhOR9wGiJPFMUVYsQrAOznoJz" alt="Politecnico"></div>
+      <div class="polaroid" style="--r: 0.6;"><img src="https://lh3.googleusercontent.com/d/1t3B7bjRTQXPG6eqYX8p-NsL0ho4QuV4p" alt="Edinburgh Sunset"></div>
+      <div class="polaroid" style="--r: 0.4;"><img src="https://lh3.googleusercontent.com/d/1R2_wpmddwunhfmFAeAt3XP1cgqt6c-iD" alt="Cascata"></div>
+      <div class="polaroid" style="--r: 0.8;"><img src="https://lh3.googleusercontent.com/d/10cTu10vmiyQGsNWCoUSydW6ugqV7Expw" alt="Natura"></div>
+      <div class="polaroid" style="--r: 0.1;"><img src="https://lh3.googleusercontent.com/d/1c-hrMZD0J19w6O63jTzlgZxMpaSFNcA2" alt="Parco Lago"></div>
+      <div class="polaroid" style="--r: 0.5;"><img src="https://lh3.googleusercontent.com/d/1w9cxgKYTveayal8zYwfIOlXdl_PDCdS6" alt="Borgo con fiori"></div>
+
+      <div class="polaroid" style="--r: 0.3;"><img src="https://lh3.googleusercontent.com/d/1YOiF8L9fv4ad9qoMC1ih2-KiZjD-N6Yh" alt="Giacche Barbour"></div>
+      <div class="polaroid" style="--r: 0.7;"><img src="https://lh3.googleusercontent.com/d/1L3YlkS2NeOYfum38Fpz5I8hjEuKPmwuw" alt="Sorrisi vicini"></div>
+      <div class="polaroid" style="--r: 0.2;"><img src="https://lh3.googleusercontent.com/d/1boH7qyCEqtD0EZLlxOJOqcu_AZt2sVOO" alt="Spiaggia relax"></div>
+      <div class="polaroid" style="--r: 0.5;"><img src="https://lh3.googleusercontent.com/d/1LgZ5LCPk9O_UQKYiQVhw3SbUPDaLqMcV" alt="Castello storico"></div>
+      <div class="polaroid" style="--r: 0.8; transform: rotate(90deg)"><img src="https://lh3.googleusercontent.com/d/1IGnQ_X2frpeGis6s8RJFp8AvmcS_oJER" alt="Aiuto sul sentiero"></div>
+      <div class="polaroid" style="--r: 0.1;"><img src="https://lh3.googleusercontent.com/d/1iWhiHf976NB5c8fHFvmIbMsI6h2YCNwr" alt="Abbraccio al viadotto"></div>
+
+      <div class="polaroid" style="--r: 0.3;"><img src="https://lh3.googleusercontent.com/d/1zSNSBwvCQ8mzBfiCiJr3qeyrnP3g2lqG" alt="In ascensore"></div>
+      <div class="polaroid" style="--r: 0.7;"><img src="https://lh3.googleusercontent.com/d/1YX2I37Iurxd4SpzM9X5l-PFVknmNBa4X" alt="Grotta al mare"></div>
+      <div class="polaroid" style="--r: 0.2;"><img src="https://lh3.googleusercontent.com/d/1-b8gjDjBYhxCkgh87kNa5PTHbIpCQfKE" alt="Festa"></div>
+      <div class="polaroid" style="--r: 0.5;"><img src="https://lh3.googleusercontent.com/d/1iHnbDBfSNk35ccdvEivZUAg0gMXGVYII" alt="Tenerezza"></div>
+      <div class="polaroid" style="--r: 0.8;"><img src="https://lh3.googleusercontent.com/d/1VuE_H-rV5nHoKN-t_77XFmOZQCjwPRsn" alt="Passeggiata"></div>
+      <div class="polaroid" style="--r: 0.1;"><img src="https://lh3.googleusercontent.com/d/1hKUJijOLRga4cIema1pD8IxXtTTU4LMX" alt="Oxford"></div>
+      <div class="polaroid" style="--r: 0.4;"><img src="https://lh3.googleusercontent.com/d/1HQdgZQHupozD3CAcHdmQwewo6RY1j8Ww" alt="Specchio bagno"></div>
+      <div class="polaroid" style="--r: 0.6; transform: rotate(90deg)"><img src="https://lh3.googleusercontent.com/d/14ccF7-GMBJupanKIfsqLeWUXvd2BaZHJ" alt="Chiostro"></div>
+      <div class="polaroid" style="--r: 0.2; transform: rotate(90deg)"><img src="https://lh3.googleusercontent.com/d/1Wl9aEhThdt56votVfNaI8E_TsMTl7Mai" alt="Bacio caldo"></div>
+      <div class="polaroid" style="--r: 0.9;"><img src="https://lh3.googleusercontent.com/d/1-Jxz0ZquQk62oHdLjtzIsufCbEXZXFYb" alt="Polaroid mare"></div>
+
+      <div class="polaroid" style="--r: 0.3;"><img src="https://lh3.googleusercontent.com/d/1EclbWaRx8T-8FuZPgE6TsDkzqr5wkF79" alt="Londra"></div>
+      <div class="polaroid" style="--r: 0.7;"><img src="https://lh3.googleusercontent.com/d/1Ph4bfick7jY1QdFEFBZ8RYDkaeCKFoVD" alt="In bici"></div>
+      <div class="polaroid" style="--r: 0.2; transform: rotate(90deg)"><img src="https://lh3.googleusercontent.com/d/1jsXexWMGmfXk6rksEfAudYhn6CYc-umE" alt="Compleanno"></div>
+      <div class="polaroid" style="--r: 0.5;"><img src="https://lh3.googleusercontent.com/d/1Ak75Z_SDh4LIBsECR8RVT0GQ-9OllnHL" alt="Al mare"></div>
+      <div class="polaroid" style="--r: 0.8; transform: rotate(90deg)"><img src="https://lh3.googleusercontent.com/d/1DEI-YVKn3y0TjrA9MMJTGSX0sS0QVuf8" alt="Concerto"></div>
+      <div class="polaroid" style="--r: 0.1;"><img src="https://lh3.googleusercontent.com/d/1F3R5eRidmaDXAv_Sk1FCMC-G0ZY55a7h" alt="Paesaggio"></div>
+      <div class="polaroid" style="--r: 0.4; transform: rotate(90deg)"><img src="https://lh3.googleusercontent.com/d/1HBXj60Ifq0RZZI_yCKSufwaBuUgwU3Pp" alt="Montagna"></div>
+      <div class="polaroid" style="--r: 0.6;"><img src="https://lh3.googleusercontent.com/d/1JdpiaPk2bxEYXWuVaC02MgZsuCN5iJhj" alt="Tramonto"></div>
+      <div class="polaroid" style="--r: 0.2;"><img src="https://lh3.googleusercontent.com/d/1_9YojSMuRoygs3DbodDPY7ykjLXbU206" alt="Pizza"></div>
+      <div class="polaroid" style="--r: 0.9;"><img src="https://lh3.googleusercontent.com/d/1rZ_3ygPxWjHS9jfEZcVxv4MY6MlpcqdB" alt="Scogliera"></div>
+
+      <div class="polaroid" style="--r: 0.1;"><img src="https://lh3.googleusercontent.com/d/1837jYfys7Bp5DmfFqiC-K35gMPzCdwWH" alt="Foto"></div>
+      <div class="polaroid" style="--r: 0.8;"><img src="https://lh3.googleusercontent.com/d/1ET1QfbBCDIuRBUVcDcj6955EGTYF-w4O" alt="Foto"></div>
+      <div class="polaroid" style="--r: 0.3;"><img src="https://lh3.googleusercontent.com/d/1qlTFfH85x17noyg0NPUSibk4PtcgLPxv" alt="Foto"></div>
+      <div class="polaroid" style="--r: 0.6;"><img src="https://lh3.googleusercontent.com/d/1FOZMt1ngVuMEVLAMxExyKDCfEQpA-yQK" alt="Foto"></div>
+      <div class="polaroid" style="--r: 0.4;"><img src="https://lh3.googleusercontent.com/d/1_tV3kkl-gIPMi1k1IiS8d91NDmHUtIVm" alt="Foto"></div>
+
+      <!-- Altre foto aggiunte -->
+      <div class="polaroid" style="--r: 0.2;"><img src="https://lh3.googleusercontent.com/d/1WWRQph4T7nIZgfdWW9sJYZeaDM2DjnUi" alt="Foto"></div>
+      <div class="polaroid" style="--r: 0.7;"><img src="https://lh3.googleusercontent.com/d/1j9Je4YkvcTS-P1sQmTd6LttWvRSWz72O" alt="Foto"></div>
+      <div class="polaroid" style="--r: 0.4; transform: rotate(90deg)"><img src="https://lh3.googleusercontent.com/d/1Dvumb49rHmcfVY70PlFRxYvoUYReFrS2" alt="Foto"></div>
+      <div class="polaroid" style="--r: 0.8; transform: rotate(90deg)"><img src="https://lh3.googleusercontent.com/d/1K8rhrZ4_x81cGxB7uotDU_UW1MKoh31W" alt="Foto"></div>
+      <div class="polaroid" style="--r: 0.1;"><img src="https://lh3.googleusercontent.com/d/1FWpSfaiowgHILV1C-DPLdzzL_Tqbsvpo" alt="Foto"></div>
+      <div class="polaroid" style="--r: 0.5;"><img src="https://lh3.googleusercontent.com/d/1yF1htQy8h1ozIqVkmu1VcmDPrZ89fBTp" alt="Foto"></div>
+      <div class="polaroid" style="--r: 0.3;"><img src="https://lh3.googleusercontent.com/d/1PKDMSssXTDUJgQ7X7UV4KGEPj4DSKCt3" alt="Foto"></div>
+      <div class="polaroid" style="--r: 0.6;"><img src="https://lh3.googleusercontent.com/d/17-gSRApq-25tciS8yHvNkZtzixQHxnLO" alt="Foto"></div>
+
+    </div>
+
+    <button class="carosello-btn next" onclick="scorriGalleria(1)">&#10095;</button>
+  </div>
+</section>
+
+<!-- Script per muovere il carosello cliccando sulle frecce -->
+<script>
+  function scorriGalleria(direzione) {
+    const track = document.getElementById('track-galleria');
+    const scorrimento = 250 * direzione;
+    track.scrollBy({ left: scorrimento, behavior: 'smooth' });
+  }
+</script>
+
+<div id="playlist" style="padding-top: 60px; padding-bottom: 60px;">
+  <div class="inner">
+    <h2>🎵 La Playlist di Loris</h2>
+    <p class="sotto">Le canzoni dei nostri viaggi, delle nostre serate e di questi nostri anni insieme</p>
+    <div class="spotify-box">
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5Vp4v3PQjEWnhAqqFE8Wtb?utm_source=generator&theme=0&si=dfce4ff94d3a472f" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- Stile CSS incorporato direttamente nell'HTML -->
+<style>
+
+  /* CURSORE SULLE FOTO */
+.polaroid img {
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+}
+
+.polaroid img:hover {
+    transform: scale(1.04);
+}
+
+/* SFONDO POPUP */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    cursor: zoom-out;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+/* IMMAGINE INGRANDITA */
+.lightbox img {
+    max-width: 90%;
+    max-height: 88vh;
+    object-fit: contain;
+    border-radius: 5px;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+    animation: apparizione 0.3s ease;
+    cursor: default;
+}
+
+/* PULSANTE CHIUSURA */
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+@keyframes apparizione {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .lightbox img {
+        max-width: 96%;
+        max-height: 82vh;
+    }
+
+    .lightbox-close {
+        top: 10px;
+        right: 15px;
+    }
+}
+
+  .regalo-segreto img {
+    max-width: 100%;
+    border-radius: 8px;
+    filter: brightness(0); /* Rende l'immagine completamente nera e invisibile */
+    transition: filter 0.8s ease; /* Effetto di transizione fluida allo sblocco */
+  }
+  .regalo-box.rivelato .regalo-segreto img {
+    filter: brightness(1); /* Riporta l'immagine alla luminosità normale quando viene svelata */
+  }
+</style>
+
+<section id="regalo">
+  <h2>🎁 Il Regalo è top secret!</h2>
+  <p class="sotto" id="cd-testo">Il regalo di compleanno è ancora oscurato. Dovrai aspettare l'arrivo di Stella il 19/12!</p>
+  <div class="regalo-box" id="regalo-box">
+    <span class="lucchetto" id="lucchetto-icon">🔒</span>
+    <div class="regalo-segreto">
+      <!-- Sostituisci "URL_DELLA_TUA_IMMAGINE" con il percorso o il link dell'immagine degli occhiali -->
+      <img src="https://images2.ray-ban.com//prod-onecp-record-files/pieyewear/0ceb82a5-3ebd-4eae-bbd3-b35d00d748f9/0RB3183__002_81_030A.png?impolicy=RB_Product_clone&width=1440&bgc=%23f2f2f2" alt="Regalo segreto">
+      <p style="margin-top: 10px; font-weight: bold;">😎 Nuovi occhiali da sole Ray-Ban!</p>
+    </div>
+    <!-- Il pulsante parte disattivato finché il countdown non arriva a zero -->
+    <button class="btn" id="btn-sblocca" onclick="rivelaRegalo()" disabled>🔓 Sblocca il regalo</button>
+  </div>
+</section>
+
+<footer>
+  Fatto con amore da <b>Stella</b> per il compleanno di <b>Loris</b> · 12 novembre 2027 <br><br>
+  <span style="font-size:13px">"Dopo tutto questo tempo?" — "Sempre." ⚡</span>
+</footer>
+
+<canvas id="confetti-canvas"></canvas>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+/* ================= AUDIO EFFETTI ================= */
+let audioOn = true, actx = null;
+function ensureAudio(){
+  if(!actx){ try{ actx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} }
+  if(actx && actx.state==='suspended') actx.resume();
+}
+function beep(freq, dur, type, vol, when){
+  if(!audioOn || !actx) return;
+  try{
+    const t = actx.currentTime + Math.max(0, when||0);
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type = type||'square'; o.frequency.value = freq;
+    g.gain.setValueAtTime(vol||0.08, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(actx.destination);
+    o.start(t); o.stop(t + dur + .02);
+  }catch(e){}
+}
+const suonoSalto  = ()=> beep(420,.12,'square',.06);
+const suonoMoneta = ()=> { beep(988,.08,'square',.07); beep(1319,.14,'square',.07,.08); };
+const suonoRupia  = ()=> { beep(1175,.09,'triangle',.09); beep(1568,.16,'triangle',.09,.09); };
+const suonoBacio  = ()=> { beep(660,.12,'triangle',.08); beep(880,.2,'triangle',.08,.1); beep(1046,.25,'sine',.06,.22); };
+const suonoCuore  = ()=> [523,659,784,1047,1319].forEach((f,i)=>beep(f,.14,'triangle',.09,i*.1));
+const suonoTriforza = ()=> [784,988,1175,1568].forEach((f,i)=>beep(f,.18,'square',.08,i*.12));
+const suonoNemico = ()=> beep(180,.18,'sawtooth',.09);
+const suonoDanno  = ()=> { beep(300,.2,'sawtooth',.1); beep(150,.3,'sawtooth',.1,.12); };
+const suonoEsplosione = ()=> { beep(90,.5,'sawtooth',.14); beep(60,.7,'square',.1,.1); beep(1200,.3,'triangle',.06,.05); };
+const suonoVittoria = ()=> [523,659,784,1047].forEach((f,i)=>beep(f,.16,'square',.08,i*.13));
+
+/* ================= VOCE DI VOLDEMORT: "AVADA KEDAVRA!" ================= */
+function urlaAvadaKedavra(){
+  try{
+    if(!('speechSynthesis' in window)) return;
+    speechSynthesis.cancel(); // Interrompe eventuali frasi precedenti
+    
+    const utt = new SpeechSynthesisUtterance("Avada Kedavra!");
+    utt.lang = 'en-EN';  // oppure 'en-GB' per la pronuncia originale
+    utt.pitch = 0.5;     // Voce profonda e cupa da Signore Oscuro
+    utt.rate = 0.95;     // Ritmo marcato
+    utt.volume = 1.0;
+    
+    speechSynthesis.speak(utt);
+  }catch(e){}
+}
+
+function fermaAvadaKedavra(){
+  try{
+    // 1. Ferma la sintesi vocale se sta parlando
+    if('speechSynthesis' in window) {
+      speechSynthesis.cancel();
+    }
+    
+    // 2. Mette in pausa o ferma il video di YouTube del duello
+    if(ytPlayer && typeof ytPlayer.stopVideo === 'function') {
+      ytPlayer.stopVideo();
+    }
+  }catch(e){}
+}
+
+/* ================= MUSICHE DI SOTTOFONDO ================= */
+const YT_ID = { mario1:'uojri3jw5mE', mario2:'FbHNe8bar7I', pokemon:'0j9Avms2F0A', hogwarts:'wtHra9tFISY', avada:'Iooyl5WxPqA'};
+let ytPlayer=null, ytReady=false, ytMode=false, ytOk=true, temaCorrente='mario';
+function onYouTubeIframeAPIReady(){
+  try{
+    ytPlayer = new YT.Player('yt-music', {
+      width:'1', height:'1',
+      playerVars:{controls:0, rel:0, playsinline:1},
+      events:{
+        onReady:()=>{ ytReady=true; if(running) avviaMusica(temaCorrente); },
+        onError:(e)=>{ console.warn('YT error', e && e.data); ytOk=false; ytMode=false; avviaChiptune(temaCorrente); },
+        onStateChange:(e)=>{ if(ytMode && e.data===YT.PlayerState.ENDED) ytPlayer.playVideo(); }
+      }
+    });
+  }catch(e){ ytOk=false; }
+}
+const CANZONI = {
+  mario1:      {bpm:100, note:[[76,1.2],[81,.6],[83,.6],[88,1.8],[86,.9],[83,.9],[81,1.8],[79,.9],[77,.9],[76,3.6]]},
+  mario2:   {bpm:152, note:[[72,.5],[76,.5],[79,.5],[81,.5],[79,.5],[76,.5],[77,.5],[74,.5],[76,.5],[77,.5],[79,.5],[77,.5],[76,.5],[74,.5],[72,.5],[74,.5]]},
+  pokemon: {bpm:112, note:[[67,.8],[69,.8],[71,.8],[74,1.6],[76,.8],[79,1.6],[78,.8],[76,.8],[74,.8],[71,.8],[69,.8],[67,1.6]]},
+  hogwarts:    {bpm:146, note:[[57,.4],[57,.4],[60,.4],[57,.4],[64,.8],[55,.4],[57,.4],[57,.4],[52,.4],[57,.8],[45,.8],[48,.8],[52,.8],[50,.8]]}
+};
+let musicOn = true, chipTimer = null, melodia = [], mi = 0, nextT = 0;
+function avviaMusica(tema){
+  temaCorrente = tema; fermaChiptune();
+  if(ytOk && ytReady && ytPlayer && ytPlayer.loadVideoById){
+    try{
+      ytMode = true;
+      ytPlayer.loadVideoById(YT_ID[tema]);
+      ytPlayer.setVolume(45);
+      if(musicOn) ytPlayer.playVideo();
+      return;
+    }catch(e){ ytMode=false; }
+  }
+  avviaChiptune(tema);
+}
+function avviaChiptune(tema){
+  ytMode=false; fermaChiptune();
+  const c = CANZONI[tema]; if(!c) return;
+  melodia = c.note; mi = 0;
+  if(!actx) return;
+  nextT = actx.currentTime + 0.15;
+  const beat = 60 / c.bpm;
+  chipTimer = setInterval(()=>{
+    if(!musicOn || !audioOn || !actx) { nextT = Math.max(nextT, actx ? actx.currentTime + .1 : 0); return; }
+    while(nextT < actx.currentTime + 0.5){
+      const n = melodia[mi], f = 440*Math.pow(2,(n[0]-69)/12), d = n[1]*beat;
+      beep(f, d*0.92, 'square', 0.055, nextT - actx.currentTime);
+      beep(f/2, d*0.92, 'triangle', 0.04, nextT - actx.currentTime);
+      nextT += d; mi = (mi+1)%melodia.length;
+    }
+  }, 180);
+}
+function fermaChiptune(){ if(chipTimer){ clearInterval(chipTimer); chipTimer=null; } }
+function toggleMusica(){
+  musicOn = !musicOn;
+  if(ytMode && ytPlayer){
+    if(musicOn){ ytPlayer.unMute(); ytPlayer.playVideo(); } else ytPlayer.pauseVideo();
+  }
+}
+
+/* ================= LIVELLI =================
+   Piattaforme: [x, y, larghezza, altezza] | Nemici: [x, y, tipo]
+   tipi: goomba / koopa (Mario) · pinguino (neve) · pikachu / charmander / squirtle / bulbasaur (Pokémon)
+*/
+const LIVELLI = [
+  { nome:"Livello 1 — Regno dei Funghi 🍄", tema:'mario', musica:'mario1', inizio:[80,380],
+    piattaforme:[
+      [0,500,680,40],[780,500,460,40],[1330,500,420,40],[1910,500,560,40],[2610,500,720,40],
+      [300,390,120,20],[520,310,120,20],[840,400,120,20],[1080,330,130,20],
+      [1420,400,130,20],[1660,320,130,20],[1990,390,130,20],[2230,310,130,20],
+      [2780,400,130,20],[3020,320,130,20]
+    ],
+    monete:[[340,350],[560,270],[880,360],[1120,290],[1480,360],[1720,280],[2050,350],[2290,270],[2840,360],[3080,280],[3160,460]],
+    rupie:[[740,440],[1870,270],[2560,440]],
+    baci:[[1210,460],[2440,270],[2920,270]],
+    nemici:[[380,470,'goomba'],[900,470,'koopa'],[980,470,'goomba'],[1400,470,'koopa'],[1550,470,'goomba'],[2050,470,'koopa'],[2150,470,'goomba'],[2700,470,'koopa'],[2900,470,'goomba'],[3120,470,'koopa']],
+    bandiera:3240
+  },
+  { nome:"Livello 2 — Il Regno della Neve ❄️", tema:'inverno', musica:'mario2', inizio:[80,380],
+    piattaforme:[
+      [0,500,560,40],[660,500,380,40],[1140,500,420,40],[1700,500,380,40],[2220,500,760,40],
+      [250,400,110,18],[470,320,110,18],[750,400,110,18],[960,310,120,18],
+      [1260,400,110,18],[1470,310,120,18],[1780,400,110,18],[1990,310,120,18],
+      [2440,400,120,18],[2700,310,130,18],[2940,400,120,18]
+    ],
+    monete:[[290,360],[510,280],[790,360],[1010,270],[1300,360],[1510,270],[1820,360],[2030,270],[2480,360],[2750,270],[2990,360],[3050,460]],
+    rupie:[[700,450],[1600,270],[2300,450]],
+    baci:[[1060,270],[1900,360],[2840,270]],
+    cuore:[1100,290],
+    nemici:[[300,470,'pinguino'],[420,470,'pinguino'],[720,470,'pinguino'],[900,470,'pinguino'],[1150,470,'pinguino'],[1300,470,'pinguino'],[1450,470,'pinguino'],[1800,470,'pinguino'],[2000,470,'pinguino'],[2300,470,'pinguino'],[2500,470,'pinguino'],[2700,470,'pinguino'],[2900,470,'pinguino']],
+    bandiera:2890
+  },
+  { nome:"Livello 3 — Mondo Pokémon ⚡", tema:'pokemon', musica:'pokemon', inizio:[80,380],
+    piattaforme:[
+      [0,500,620,40],[740,500,400,40],[1260,500,400,40],[1780,500,420,40],[2340,500,820,40],
+      [280,410,120,18],[540,330,120,18],[820,410,120,18],[1080,330,120,18],
+      [1360,410,120,18],[1620,330,120,18],[1900,410,120,18],[2160,330,120,18],
+      [2500,410,130,18],[2780,330,130,18],[3060,410,130,18]
+    ],
+    monete:[[320,370],[580,290],[860,370],[1120,290],[1400,370],[1660,290],[1940,370],[2200,290],[2540,370],[2820,290],[3100,370],[3150,460]],
+    rupie:[[700,450],[1750,290],[2400,450]],
+    baci:[[960,290],[1520,290],[2320,370],[3000,290]],
+    triforza:[1540,270],
+    nemici:[[350,470,'charmander'],[500,470,'pikachu'],[900,470,'bulbasaur'],[1050,470,'squirtle'],[1450,470,'pikachu'],[1600,470,'charmander'],[2000,470,'squirtle'],[2150,470,'bulbasaur'],[2500,470,'pikachu'],[2650,470,'squirtle'],[2800,470,'charmander'],[3000,470,'bulbasaur'],[3150,470,'pikachu']],
+    bandiera:3070
+  },
+  { nome:"⚡ Il Castello di Hogwarts: il Duello Finale ⚡", tema:'hogwarts', musica:'hogwarts', inizio:[80,380], boss:true,
+    piattaforme:[[0,500,1200,40],[240,400,130,18],[470,310,130,18],[700,400,130,18],[930,310,130,18]],
+    monete:[[300,360],[530,270],[760,360],[990,270]],
+    baci:[[600,360],[850,270]],
+    nemici:[],
+    principessa:1060, voldemortStart:820
+  }
+];
+
+/* ================= STATO ================= */
+const cvs = document.getElementById('game'), ctx = cvs.getContext('2d');
+const W=960, H=540, GRAV=0.35, VELOCITA=2.5, SALTO=-11.5;
+let livelloIdx=0, moneteTotali=0, baciTotali=0, camX=0, running=false, frame=0;
+let tasti={}, piattaforme=[], monete=[], rupie=[], baci=[], nemici=[], particelle=[], incantesimi=[];
+let cuoreCassettone=null, triforzaObj=null;
+const COSTUMI = ['mario','ice','ash','harry'];
+const giocatore = {x:0,y:0,vx:0,vy:0,w:26,h:44,onGround:false,dir:1,vite:3,invuln:0,walk:0};
+let bandiera=null, principessa=null, voldemort=null, voldMortoTimer=0, flashTimer=0;
+
+function caricaLivello(i){
+  const L = LIVELLI[i];
+  piattaforme = L.piattaforme.map(p=>({x:p[0],y:p[1],w:p[2],h:p[3]}));
+  monete = (L.monete||[]).map(m=>({x:m[0],y:m[1],presa:false,gira:Math.random()*6}));
+  rupie  = (L.rupie||[]).map(m=>({x:m[0],y:m[1],presa:false,gira:Math.random()*6}));
+  baci   = (L.baci||[]).map(m=>({x:m[0],y:m[1],presa:false,gira:Math.random()*6}));
+  nemici = (L.nemici||[]).map(n=>{
+    const terra = piattaforme.find(p=> n[1]>=p.y-40 && n[1]<=p.y && n[0]>=p.x && n[0]<=p.x+p.w) || piattaforme[0];
+    return {x:n[0], y:n[1], w:34, h:30, vx:(1.1+livelloIdx*0.15)*(n[2]==='pinguino'?0.9:1)*(n[2]==='goomba'?1.2:1), min:terra.x+4, max:terra.x+terra.w-38, morto:0, terra, tipo:n[2], anim:Math.random()*6};
+  });
+  cuoreCassettone = L.cuore ? {x:L.cuore[0], y:L.cuore[1], presa:false} : null;
+  triforzaObj = L.triforza ? {x:L.triforza[0], y:L.triforza[1], presa:false, gira:0} : null;
+  giocatore.x=L.inizio[0]; giocatore.y=L.inizio[1]; giocatore.vx=0; giocatore.vy=0; giocatore.invuln=90;
+  bandiera = L.bandiera!=null ? {x:L.bandiera, y:500} : null;
+  principessa = L.principessa!=null ? {x:L.principessa, y:500} : null;
+  voldemort = L.boss ? {x:L.voldemortStart, y:380, vx:0.9, vy:0, w:34, h:56, onGround:false, jumpCd:120, castCd:150, morto:false} : null;
+  incantesimi=[]; voldMortoTimer=0;
+  camX = 0; particelle=[];
+  document.getElementById('hud-livello').textContent = L.nome;
+  aggiornaHUD();
+}
+function aggiornaHUD(){
+  document.getElementById('hud-vite').textContent = '❤️'.repeat(Math.max(0,giocatore.vite)) + '🖤'.repeat(Math.max(0,3-Math.max(0,giocatore.vite)));
+  document.getElementById('hud-monete').textContent = '🪙 ' + moneteTotali;
+  document.getElementById('hud-baci').textContent = '💋 ' + baciTotali;
+}
+
+/* ================= LOGICA ================= */
+function update(){
+  if(!running) return;
+  frame++;
+  const p = giocatore;
+
+  if(tasti['ArrowLeft']||tasti['a']||tasti['A']) { p.vx=-VELOCITA; p.dir=-1; }
+  else if(tasti['ArrowRight']||tasti['d']||tasti['D']) { p.vx=VELOCITA; p.dir=1; }
+  else p.vx*=0.8;
+  if(Math.abs(p.vx)>0.5 && p.onGround) p.walk+=0.25; else p.walk=0;
+
+  if((tasti[' ']||tasti['ArrowUp']||tasti['w']||tasti['W']) && p.onGround){
+    p.vy = SALTO; p.onGround=false; suonoSalto();
+  }
+  p.vy += GRAV; if(p.vy>18) p.vy=18;
+
+  p.y += p.vy; p.onGround=false;
+  for(const pl of piattaforme){
+    if(p.x+p.w>pl.x && p.x<pl.x+pl.w){
+      if(p.vy>=0 && p.y+p.h>=pl.y && p.y+p.h-p.vy<=pl.y+14){ p.y=pl.y-p.h; p.vy=0; p.onGround=true; }
+      else if(p.vy<0 && p.y<=pl.y+pl.h && p.y-p.vy>=pl.y+pl.h-14 && pl.h<=30){ p.y=pl.y+pl.h; p.vy=0; }
+    }
+  }
+  p.x += p.vx;
+  for(const pl of piattaforme){
+    if(p.y+p.h>pl.y+4 && p.y<pl.y+pl.h-4){
+      if(p.vx>0 && p.x+p.w>pl.x && p.x+p.w-p.vx<=pl.x+6){ p.x=pl.x-p.w; }
+      else if(p.vx<0 && p.x<pl.x+pl.w && p.x-p.vx>=pl.x+pl.w-6){ p.x=pl.x+pl.w; }
+    }
+  }
+  if(p.x<0) p.x=0;
+  if(p.invuln>0) p.invuln--;
+
+  if(p.y > H+80){ perdiVita(); return; }
+
+  for(const n of nemici){
+    if(n.morto) continue;
+    n.anim += 0.15;
+    n.x += n.vx * 0.3; // <--- Riduce la velocità del 60% (puoi regolare questo moltiplicatore)
+    if(n.x<n.min||n.x>n.max) n.vx*=-1;
+    if(p.x+p.w>n.x+4 && p.x<n.x+n.w-4 && p.y+p.h>n.y+4 && p.y<n.y+n.h-2){
+      if(p.vy>1 && p.y+p.h < n.y+n.h*0.6){
+        n.morto=1; p.vy=-9; suonoNemico(); moneteTotali+=2; aggiornaHUD();
+        for(let k=0;k<10;k++) particelle.push({x:n.x+16,y:n.y+12,vx:(Math.random()-.5)*5,vy:-Math.random()*5,vita:32,colore:'#fff'});
+      } else if(p.invuln<=0){
+        suonoDanno(); perdiVita(); return;
+      }
+    }
+  }
+
+  for(const m of monete){
+    if(m.presa) continue;
+    if(Math.abs(p.x+p.w/2-m.x)<26 && Math.abs(p.y+p.h/2-m.y)<34){
+      m.presa=true; moneteTotali++; suonoMoneta(); aggiornaHUD();
+      for(let k=0;k<6;k++) particelle.push({x:m.x,y:m.y,vx:(Math.random()-.5)*4,vy:-Math.random()*4,vita:25,colore:'#f7c948'});
+    }
+  }
+  for(const m of rupie){
+    if(m.presa) continue;
+    if(Math.abs(p.x+p.w/2-m.x)<26 && Math.abs(p.y+p.h/2-m.y)<34){
+      m.presa=true; moneteTotali+=5; suonoRupia(); aggiornaHUD();
+      for(let k=0;k<8;k++) particelle.push({x:m.x,y:m.y,vx:(Math.random()-.5)*4,vy:-Math.random()*4,vita:28,colore:'#3ecf6a'});
+    }
+  }
+  for(const b of baci){
+    if(b.presa) continue;
+    if(Math.abs(p.x+p.w/2-b.x)<26 && Math.abs(p.y+p.h/2-b.y)<34){
+      b.presa=true; baciTotali++; suonoBacio(); aggiornaHUD();
+      for(let k=0;k<10;k++) particelle.push({x:b.x,y:b.y,vx:(Math.random()-.5)*4,vy:-Math.random()*4,vita:30,colore:'#ff6b9d'});
+    }
+  }
+  if(cuoreCassettone && !cuoreCassettone.presa &&
+     Math.abs(p.x+p.w/2-cuoreCassettone.x)<28 && Math.abs(p.y+p.h/2-cuoreCassettone.y)<36){
+    cuoreCassettone.presa=true; giocatore.vite=Math.min(6,giocatore.vite+1); suonoCuore(); aggiornaHUD();
+  }
+  if(triforzaObj && !triforzaObj.presa){
+    triforzaObj.gira+=0.05;
+    if(Math.abs(p.x+p.w/2-triforzaObj.x)<30 && Math.abs(p.y+p.h/2-triforzaObj.y)<38){
+      triforzaObj.presa=true; moneteTotali+=15; suonoTriforza(); aggiornaHUD();
+      for(let k=0;k<16;k++) particelle.push({x:triforzaObj.x,y:triforzaObj.y,vx:(Math.random()-.5)*6,vy:-Math.random()*6,vita:40,colore:'#f7c948'});
+    }
+  }
+
+  if(bandiera && p.x+p.w > bandiera.x-6){
+    running=false; suonoVittoria();
+    mostra('ov-livello');
+    document.getElementById('ov-livello-titolo').textContent = '🚩 Livello completato!';
+    document.getElementById('ov-livello-testo').innerHTML = 'Ottimo lavoro, Loris!<br>Monete: 🪙 '+moneteTotali+' · Baci di Stella: 💋 '+baciTotali+'<br>Preparati per: <b>'+LIVELLI[livelloIdx+1].nome+'</b>';
+    return;
+  }
+
+  if(voldemort){
+    const v = voldemort;
+    if(v.morto){
+      voldMortoTimer--;
+      if(voldMortoTimer%6===0) particelle.push({x:v.x+17+(Math.random()-.5)*40,y:v.y+Math.random()*50,vx:(Math.random()-.5)*4,vy:-2-Math.random()*3,vita:50,colore:['#fff','#f7c948','#b79ced'][Math.floor(Math.random()*3)]});
+      if(voldMortoTimer===0){ vittoriaFinale(); return; }
+    } else {
+      v.vy += GRAV; if(v.vy>16) v.vy=16;
+      v.y += v.vy; v.onGround=false;
+      for(const pl of piattaforme){
+        if(v.x+v.w>pl.x && v.x<pl.x+pl.w && v.vy>=0 && v.y+v.h>=pl.y && v.y+v.h-v.vy<=pl.y+16){ v.y=pl.y-v.h; v.vy=0; v.onGround=true; }
+      }
+      v.x += v.vx;
+      for(const pl of piattaforme){
+        if(v.y+v.h>pl.y+4 && v.y<pl.y+pl.h-4){
+          if(v.vx>0 && v.x+v.w>pl.x && v.x+v.w-v.vx<=pl.x+8){ v.x=pl.x-v.w; v.vx*=-1; }
+          else if(v.vx<0 && v.x<pl.x+pl.w && v.x-v.vx>=pl.x+pl.w-8){ v.x=pl.x+pl.w; v.vx*=-1; }
+        }
+      }
+      if(v.x<620) { v.x=620; v.vx=Math.abs(v.vx); }
+      if(v.x>1140){ v.x=1140; v.vx=-Math.abs(v.vx); }
+      if(v.onGround){ v.jumpCd--; if(v.jumpCd<=0){ v.vy=-13.5; v.vx=(Math.random()<0.5?-1:1)*(1.4+Math.random()); v.jumpCd=110+Math.random()*90; } }
+      v.castCd--;
+      if(v.castCd<=0 && v.onGround){
+        v.castCd=260+Math.random()*120;
+        const dx=(p.x+p.w/2)-(v.x+17), dy=(p.y+p.h/2)-(v.y+20), dist=Math.hypot(dx,dy)||1;
+        incantesimi.push({x:v.x+17,y:v.y+20,vx:dx/dist*4.8,vy:dy/dist*4.8-1,vita:300});
+        beep(200,.25,'sawtooth',.07);
+        urlaAvadaKedavra();
+      }
+    }
+    for(const s of incantesimi){
+      s.x+=s.vx; s.y+=s.vy; s.vy+=0.03; s.vita--;
+      for(const pl of piattaforme){ if(s.x>pl.x&&s.x<pl.x+pl.w&&s.y>pl.y&&s.y<pl.y+pl.h){ s.vita=0; } }
+      if(!v.morto && p.invuln<=0 && Math.abs(p.x+p.w/2-s.x)<20 && Math.abs(p.y+p.h/2-s.y)<26){
+        s.vita=0; suonoDanno(); perdiVita(); return;
+      }
+    }
+    incantesimi = incantesimi.filter(s=>s.vita>0 && s.x>camX-100 && s.x<camX+W+100 && s.y<H+60);
+    if(!v.morto && p.invuln<=0 && p.x+p.w>v.x+4 && p.x<v.x+v.w-4 && p.y+p.h>v.y+6 && p.y<v.y+v.h){
+      suonoDanno(); perdiVita(); return;
+    }
+  }
+
+  for(const q of particelle){ q.x+=q.vx; q.y+=q.vy; q.vy+=0.3; q.vita--; }
+  particelle = particelle.filter(q=>q.vita>0);
+
+  const target = p.x - W*0.4;
+  camX += (target - camX)*0.12;
+  const fine = LIVELLI[livelloIdx].bandiera || LIVELLI[livelloIdx].principessa || 1000;
+  const maxCam = Math.max(0, fine + 260 - W);
+  camX = Math.max(0, Math.min(camX, maxCam));
+
+  if(flashTimer>0) flashTimer--;
+  draw();
+  requestAnimationFrame(update);
+}
+
+function perdiVita(){
+  giocatore.vite--; aggiornaHUD();
+  incantesimi=[];
+  if(giocatore.vite<=0){
+    running=false; stopMic(); try{speechSynthesis.cancel();}catch(e){} mostra('ov-gameover'); toggleMusica(); fermaAvadaKedavra();
+    return;
+  }
+  const L=LIVELLI[livelloIdx];
+  giocatore.x=L.inizio[0]; giocatore.y=L.inizio[1]; giocatore.vx=0; giocatore.vy=0; giocatore.invuln=130;
+  draw();
+  requestAnimationFrame(update);
+}
+function startGioco(){
+  nascondiOverlays(); ensureAudio(); avviaMusica(LIVELLI[livelloIdx].musica);
+  running=true; requestAnimationFrame(update);
+}
+function prossimoLivello(){
+  nascondiOverlays(); livelloIdx++;
+  caricaLivello(livelloIdx);
+  if(LIVELLI[livelloIdx].boss){ mostra('ov-riddle'); draw(); return; }
+  ensureAudio(); avviaMusica(LIVELLI[livelloIdx].musica);
+  running=true; requestAnimationFrame(update);
+}
+function restart(){
+  stopMic(); nascondiOverlays(); livelloIdx=0; moneteTotali=0; baciTotali=0; giocatore.vite=3;
+  caricaLivello(0); aggiornaHUD(); ensureAudio(); avviaMusica('mario1');
+  running=true; requestAnimationFrame(update);
+}
+function vittoriaFinale(){
+  running=false; if(ytMode&&ytPlayer) ytPlayer.pauseVideo(); fermaChiptune(); stopMic(); try{speechSynthesis.cancel();}catch(e){} suonoVittoria(); toggleMusica();
+  document.getElementById('win-monete').innerHTML = 'Monete e rupie: 🪙 '+moneteTotali+' · Baci di Stella: 💋 '+baciTotali;
+  mostra('ov-win'); lanciaConfetti();
+  fermaAvadaKedavra();
+}
+function mostra(id){ document.getElementById(id).classList.add('mostra'); }
+function nascondiOverlays(){ document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('mostra')); }
+
+/* ================= VOCE (Expelliarmus) ================= */
+let recog=null, bossAttivo=false;
+function attivaMicrofono(){
+  const SR = window.SpeechRecognition||window.webkitSpeechRecognition;
+  const msg = document.getElementById('mic-msg');
+  if(!SR){ if(msg) msg.textContent='⚠️ Il microfono non è supportato da questo browser. Usa Chrome, e apri il sito via https (es. Netlify) o localhost.'; return false; }
+  try{
+    recog = new SR();
+    recog.lang='it-IT'; recog.continuous=true; recog.interimResults=true;
+    recog.onresult = function(e){
+      for(let i=e.resultIndex;i<e.results.length;i++){
+        const t = e.results[i][0].transcript.toLowerCase().replace(/[^a-zà-ù]/g,'');
+        if(t.indexOf('expelliarmus')>=0 || t.indexOf('espelliarmus')>=0) sconfiggiVoldemort();
+      }
+    };
+    recog.onend = function(){ if(bossAttivo && running && recog){ try{recog.start();}catch(e){} } };
+    recog.onerror = function(ev){ if(msg && ev.error && ev.error!=='no-speech') msg.textContent='🎤 '+ev.error; };
+    recog.start();
+    return true;
+  }catch(e){ if(msg) msg.textContent='⚠️ Microfono non disponibile: controlla i permessi.'; return false; }
+}
+function stopMic(){ bossAttivo=false; if(recog){ try{recog.stop();}catch(e){} recog=null; } }
+function entraNelCastello(){
+  nascondiOverlays(); ensureAudio();
+  bossAttivo = attivaMicrofono() !== false;
+  avviaMusica('hogwarts');
+  running=true; requestAnimationFrame(update);
+}
+function sconfiggiVoldemort(){
+  if(!voldemort || voldemort.morto || !running) return;
+  voldemort.morto = true; voldMortoTimer = 110; incantesimi=[];
+  flashTimer = 12; suonoEsplosione(); setTimeout(suonoVittoria, 400);
+}
+
+/* ================= DISEGNO ================= */
+function draw(){
+  const L = LIVELLI[livelloIdx];
+  drawSfondo(L.tema);
+  ctx.save(); ctx.translate(-camX,0);
+
+  for(const pl of piattaforme) drawPiattaforma(pl, L.tema);
+  for(const m of monete) if(!m.presa) drawMoneta(m.x,m.y,m.gira+=0.12);
+  for(const m of rupie) if(!m.presa) drawRupia(m.x,m.y,m.gira+=0.1);
+  for(const b of baci) if(!b.presa) drawBacio(b.x,b.y,b.gira+=0.1);
+  if(cuoreCassettone && !cuoreCassettone.presa) drawCuore(cuoreCassettone.x, cuoreCassettone.y);
+  if(triforzaObj && !triforzaObj.presa) drawTriforza(triforzaObj.x, triforzaObj.y, triforzaObj.gira+=0.05);
+  if(bandiera) drawBandiera(bandiera);
+  if(principessa){ drawStella(principessa.x, principessa.y, voldemort && voldemort.morto); }
+  if(voldemort) drawVoldemort(voldemort);
+  for(const s of incantesimi) drawIncantesimo(s);
+  for(const n of nemici) if(!n.morto) drawNemico(n);
+  drawLoris(giocatore.x, giocatore.y, giocatore.dir, giocatore.walk, giocatore.invuln, COSTUMI[livelloIdx]);
+  for(const q of particelle){ ctx.globalAlpha=q.vita/32; ctx.fillStyle=q.colore; ctx.fillRect(q.x,q.y,4,4); ctx.globalAlpha=1; }
+
+  ctx.restore();
+  if(flashTimer>0){ ctx.fillStyle='rgba(255,255,220,'+(flashTimer/24)+')'; ctx.fillRect(0,0,W,H); }
+}
+
+function drawSfondo(tema){
+  const g = ctx.createLinearGradient(0,0,0,H);
+  if(tema==='mario'){ g.addColorStop(0,'#5c94fc'); g.addColorStop(.75,'#a8d8ff'); g.addColorStop(1,'#e8f4ff'); }
+  else if(tema==='inverno'){ g.addColorStop(0,'#a8d8f0'); g.addColorStop(.7,'#e8f4fc'); g.addColorStop(1,'#ffffff'); }
+  else if(tema==='pokemon'){ g.addColorStop(0,'#7ec8ff'); g.addColorStop(.7,'#c8ecff'); g.addColorStop(1,'#e8ffd8'); }
+  else if(tema==='hogwarts'){ g.addColorStop(0,'#0b0d1a'); g.addColorStop(1,'#2b1a3d'); }
+  else { g.addColorStop(0,'#120a1e'); g.addColorStop(1,'#3d2044'); }
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+
+  if(tema==='mario'){
+    // nuvole sorridenti
+    for(let i=0;i<5;i++){
+      const cx=((i*260 - camX*0.25)%(W+200)+W+200)%(W+200)-100, cy=70+(i*53)%110;
+      ctx.fillStyle='#fff';
+      ctx.beginPath(); ctx.arc(cx,cy,22,0,7); ctx.arc(cx+24,cy+6,18,0,7); ctx.arc(cx-24,cy+6,18,0,7); ctx.fill();
+      ctx.fillStyle='#5c94fc';
+      ctx.beginPath(); ctx.arc(cx-6,cy,2.4,0,7); ctx.arc(cx+8,cy,2.4,0,7); ctx.fill();
+    }
+    // colline verdi
+    ctx.fillStyle='#3aa53a';
+    for(let i=0;i<3;i++){ const hx=(i*420+60 - camX*0.45)%(W+300); ctx.beginPath(); ctx.ellipse((hx+W+300)%(W+300)-100,580,230,200,0,0,7); ctx.fill(); }
+    // tubi verdi
+    for(let i=0;i<3;i++){
+      const px=(i*520+180 - camX*0.7)%(W+250), tx=(px+W+250)%(W+250)-80;
+      ctx.fillStyle='#0f9b0f'; ctx.fillRect(tx,430,64,70);
+      ctx.fillStyle='#12c012'; ctx.fillRect(tx-8,414,80,26);
+      ctx.fillStyle='rgba(255,255,255,.35)'; ctx.fillRect(tx+8,418,10,78);
+    }
+    ctx.font='46px serif';
+    ctx.fillText('🏰', W-110, 140);
+  } else if(tema==='hogwarts'){
+    ctx.fillStyle='#fff';
+    for(let i=0;i<40;i++){ const sx=((i*173+frame*0.3)%(W+40))-20, sy=(i*97)%300; ctx.globalAlpha=.4+.5*Math.abs(Math.sin(frame*0.02+i)); ctx.fillRect(sx,sy,2,2); }
+    ctx.globalAlpha=1; ctx.font='22px serif';
+    for(let i=0;i<5;i++){ const cx=(i*230 - camX*0.3)%(W+100); ctx.fillText('🕯️', (cx+W+100)%(W+100)-50, 90+Math.sin(frame*0.03+i)*14); }
+    ctx.fillStyle='#1a1030';
+    for(let i=0;i<6;i++){ const bx=(i*300 - camX*0.5)%(W+400)-100; ctx.fillRect(bx,180,90,320); ctx.beginPath(); ctx.moveTo(bx-15,180); ctx.lineTo(bx+45,110); ctx.lineTo(bx+105,180); ctx.fill(); }
+  } else if(tema==='inverno'){
+    ctx.fillStyle='#fff';
+    for(let i=0;i<60;i++){
+      const fx=((i*137 + Math.sin(frame*0.01+i)*30 - camX*0.4)%(W+60)+W+60)%(W+60)-30;
+      const fy=((i*89 + frame*(0.6+(i%3)*0.35))%580)-20;
+      ctx.globalAlpha=.7; ctx.beginPath(); ctx.arc(fx,fy,1.6+(i%3),0,7); ctx.fill();
+    }
+    ctx.globalAlpha=1; ctx.font='38px serif';
+    for(let i=0;i<3;i++){ const tx=(i*420 - camX*0.55)%(W+250); ctx.fillText('🎄', (tx+W+250)%(W+250)-80, 320+(i%2)*30); }
+    ctx.fillText('⛄', (250 - camX*0.75)%(W+400), 460);
+    ctx.fillText('🏔️', W-140, 130);
+    ctx.fillStyle='rgba(255,255,255,.85)';
+    for(let i=0;i<4;i++){ const cx=(i*350 - camX*0.25)%(W+200); ctx.beginPath(); ctx.ellipse((cx+W+200)%(W+200)-100,120+(i*67)%120,70,20,0,0,7); ctx.fill(); }
+  } else if(tema==='pokemon'){
+    ctx.fillStyle='#5dbb4c';
+    for(let i=0;i<4;i++){ const hx=(i*360 - camX*0.3)%(W+300); ctx.beginPath(); ctx.ellipse((hx+W+300)%(W+300)-100,560,240,190,0,0,7); ctx.fill(); }
+    ctx.fillStyle='#4aa83e';
+    for(let i=0;i<3;i++){ const hx=(i*500+120 - camX*0.45)%(W+300); ctx.beginPath(); ctx.ellipse((hx+W+300)%(W+300)-100,580,200,160,0,0,7); ctx.fill(); }
+    ctx.strokeStyle='#3d9140'; ctx.lineWidth=3;
+    for(let i=0;i<24;i++){ const gx=((i*137 - camX*0.8)%(W+60)+W+60)%(W+60)-20;
+      ctx.beginPath(); ctx.moveTo(gx,505); ctx.lineTo(gx-4,488); ctx.moveTo(gx,505); ctx.lineTo(gx+2,486); ctx.stroke(); }
+    for(let i=0;i<3;i++){
+      const px=(i*430+80 - camX*0.6)%(W+300), py=130+(i*60)%90+Math.sin(frame*0.03+i)*8;
+      ctx.save(); ctx.translate((px+W+300)%(W+300)-100, py);
+      ctx.fillStyle='#e52521'; ctx.beginPath(); ctx.arc(0,0,13,Math.PI,0); ctx.fill();
+      ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(0,0,13,0,Math.PI); ctx.fill();
+      ctx.fillStyle='#222'; ctx.fillRect(-13,-2,26,4);
+      ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(0,0,5,0,7); ctx.fill();
+      ctx.fillStyle='#222'; ctx.beginPath(); ctx.arc(0,0,2.5,0,7); ctx.fill();
+      ctx.restore();
+    }
+    ctx.font='18px serif'; ctx.fillText('🦋', 200+Math.sin(frame*0.05)*40, 200+Math.cos(frame*0.04)*20);
+  } else {
+    ctx.fillStyle='#fff';
+    for(let i=0;i<30;i++){ const sx=(i*173)%(W+40), sy=(i*97)%260; ctx.globalAlpha=.3+.6*Math.abs(Math.sin(frame*0.02+i)); ctx.fillRect(sx,sy,2,2); }
+    ctx.globalAlpha=1;
+    ctx.font='52px serif'; ctx.fillText('🌕', 70, 90);
+    ctx.font='30px serif';
+    for(let i=0;i<8;i++){ const a=frame*0.02+i; ctx.globalAlpha=.7; ctx.fillText('✨', 60+i*120+Math.sin(a)*10, 130+Math.cos(a*1.3)*20); }
+    ctx.globalAlpha=1;
+    ctx.font='22px serif';
+    for(let i=0;i<6;i++){ const cx=(i*180+40)%(W+80); ctx.fillText('🕯️', (cx)%(W+80)-30, 240+Math.sin(frame*0.03+i)*16); }
+    ctx.font='60px serif'; ctx.fillText('🏰', W-180, 230);
+    ctx.font='26px serif'; ctx.fillText('🦉', 240+Math.sin(frame*0.02)*60, 120);
+  }
+}
+
+function drawPiattaforma(pl, tema){
+  let c1,c2;
+  if(tema==='mario'){ c1='#e08a4c'; c2='#8a4b1d'; }
+  else if(tema==='hogwarts'){ c1='#3d3654'; c2='#2a2440'; }
+  else if(tema==='inverno'){ c1='#ffffff'; c2='#a8c6e0'; }
+  else if(tema==='pokemon'){ c1='#5dbb4c'; c2='#7a5230'; }
+  else { c1='#8a7a99'; c2='#4a3a5c'; }
+  ctx.fillStyle=c2; ctx.fillRect(pl.x,pl.y,pl.w,pl.h);
+  ctx.fillStyle=c1; ctx.fillRect(pl.x,pl.y,pl.w,Math.min(12,pl.h));
+  if(tema==='mario'){
+    ctx.strokeStyle='rgba(0,0,0,.25)'; ctx.lineWidth=2;
+    for(let x=pl.x+20;x<pl.x+pl.w;x+=40){ ctx.beginPath(); ctx.moveTo(x,pl.y); ctx.lineTo(x,pl.y+pl.h); ctx.stroke(); }
+    ctx.beginPath(); ctx.moveTo(pl.x,pl.y+pl.h/2); ctx.lineTo(pl.x+pl.w,pl.y+pl.h/2); ctx.stroke();
+  } else {
+    ctx.fillStyle='rgba(255,255,255,.3)';
+    for(let x=pl.x+8;x<pl.x+pl.w-8;x+=26) ctx.fillRect(x,pl.y+3,12,4);
+  }
+}
+
+function drawMoneta(x,y,g){
+  const s = Math.abs(Math.cos(g));
+  ctx.save(); ctx.translate(x,y+Math.sin(g*0.7)*3); ctx.scale(Math.max(.25,s),1);
+  ctx.fillStyle='#f7c948'; ctx.beginPath(); ctx.arc(0,0,11,0,7); ctx.fill();
+  ctx.fillStyle='#d9a520'; ctx.beginPath(); ctx.arc(0,0,7,0,7); ctx.fill();
+  ctx.fillStyle='#f7c948'; ctx.fillRect(-1.5,-4,3,8);
+  ctx.restore();
+}
+function drawRupia(x,y,g){
+  const s = Math.abs(Math.cos(g));
+  ctx.save(); ctx.translate(x,y+Math.sin(g*0.8)*4); ctx.scale(Math.max(.3,s),1);
+  ctx.fillStyle='#3ecf6a';
+  ctx.beginPath(); ctx.moveTo(0,-13); ctx.lineTo(8,-4); ctx.lineTo(8,6); ctx.lineTo(0,13); ctx.lineTo(-8,6); ctx.lineTo(-8,-4); ctx.closePath(); ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,.55)'; ctx.fillRect(-2,-8,3,14);
+  ctx.restore();
+}
+function drawBacio(x, y, g) {
+  const pulse = 1 + Math.sin(g * 1.1) * 0.15;
+  
+  ctx.save();
+  ctx.translate(x, y + Math.sin(g * 0.9) * 4);
+  ctx.scale(pulse, pulse);
+  
+  ctx.font = '24px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  
+ctx.fillText('💋', -0.5, 0);
+ctx.fillText('💋', 0.5, 0);
+ctx.fillText('💋', 0, -0.5);
+ctx.fillText('💋', 0, 0.5);
+
+// Infine disegna quella centrale
+ctx.fillText('💋', 0, 0);
+  
+  ctx.restore();
+}
+function drawCuore(x,y){
+  const pulse = 1+Math.sin(frame*0.1)*0.12;
+  ctx.save(); ctx.translate(x,y); ctx.scale(pulse,pulse);
+  ctx.fillStyle='#e52521';
+  ctx.beginPath(); ctx.moveTo(0,12);
+  ctx.bezierCurveTo(-16,-2,-9,-14,0,-6);
+  ctx.bezierCurveTo(9,-14,16,-2,0,12); ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,.6)'; ctx.beginPath(); ctx.arc(-4,-4,2.4,0,7); ctx.fill();
+  ctx.restore();
+  ctx.font='11px "Courier New",monospace'; ctx.fillStyle='#fff'; ctx.textAlign='center';
+  ctx.fillText('+1', x, y+26); ctx.textAlign='left';
+}
+function drawTriforza(x,y,g){
+  const pulse = 1 + Math.sin(g * 1.1) * 0.15;
+  
+  ctx.save();
+  ctx.translate(x, y + Math.sin(g * 0.9) * 4);
+  ctx.scale(pulse, pulse);
+  
+  ctx.font = '24px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  
+ctx.fillText('🪎', -0.5, 0);
+ctx.fillText('🪎', 0.5, 0);
+ctx.fillText('🪎', 0, -0.5);
+ctx.fillText('🪎', 0, 0.5);
+
+  ctx.fillText('🪎', 0, 0);
+  
+  ctx.restore();
+}
+function drawBandiera(b){
+  ctx.fillStyle='#ddd'; ctx.fillRect(b.x,b.y-150,6,150);
+  ctx.fillStyle='#e52521';
+  ctx.beginPath(); ctx.moveTo(b.x+6,b.y-150); ctx.lineTo(b.x+70,b.y-125); ctx.lineTo(b.x+6,b.y-100); ctx.fill();
+}
+function drawIncantesimo(s){
+  ctx.save();
+  const grd = ctx.createRadialGradient(s.x,s.y,2,s.x,s.y,14);
+  grd.addColorStop(0,'#d9a7ff'); grd.addColorStop(1,'rgba(120,40,180,0)');
+  ctx.fillStyle=grd; ctx.beginPath(); ctx.arc(s.x,s.y,14,0,7); ctx.fill();
+  ctx.fillStyle='#8a2be2'; ctx.beginPath(); ctx.arc(s.x,s.y,5,0,7); ctx.fill();
+  ctx.restore();
+}
+
+/* ---- NEMICI ---- */
+function drawNemico(n){
+  ctx.save(); ctx.translate(n.x+n.w/2, n.y+n.h);
+  const wob = Math.sin(n.anim)*2;
+  if(n.tipo==='goomba'){
+    // Goomba: fungo marrone arrabbiato
+    ctx.fillStyle='#7a4a1e'; ctx.beginPath(); ctx.ellipse(0,-13+wob,15,12,0,0,7); ctx.fill();
+    ctx.fillStyle='#9a6230'; ctx.beginPath(); ctx.ellipse(0,-16+wob,15,10,0,Math.PI,0); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.ellipse(-5,-14+wob,3.4,4.4,0,0,7); ctx.ellipse(5,-14+wob,3.4,4.4,0,0,7); ctx.fill();
+    ctx.fillStyle='#222'; ctx.beginPath(); ctx.arc(-5.5,-13.4+wob,1.7,0,7); ctx.arc(5.5,-13.4+wob,1.7,0,7); ctx.fill();
+    ctx.strokeStyle='#222'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(-9,-20+wob); ctx.lineTo(-2,-16.5+wob); ctx.moveTo(9,-20+wob); ctx.lineTo(2,-16.5+wob); ctx.stroke();
+    ctx.fillStyle='#2a1608';
+    ctx.beginPath(); ctx.moveTo(-4,-6+wob); ctx.lineTo(4,-6+wob); ctx.lineTo(0,-2.5+wob); ctx.fill();
+    ctx.fillRect(-11,-2,8,3); ctx.fillRect(3,-2,8,3);
+  } else if(n.tipo==='koopa'){
+    // Koopa Tartaruga verde
+    ctx.fillStyle='#ffd23f'; ctx.beginPath(); ctx.ellipse(0,-8+wob,9,7,0,0,7); ctx.fill();
+    ctx.fillStyle='#12a512'; ctx.beginPath(); ctx.ellipse(0,-13+wob,13,10,0,Math.PI,0); ctx.fill();
+    ctx.fillStyle='#e8fbe8'; ctx.beginPath(); ctx.ellipse(0,-13+wob,13,10,0,Math.PI,0); ctx.lineTo(13,-13+wob); ctx.fill();
+    ctx.fillStyle='#0c8a0c'; ctx.beginPath(); ctx.ellipse(0,-15+wob,11,8,0,Math.PI,0); ctx.fill();
+    ctx.fillRect(-11,-15+wob,22,3);
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(-5,-18+wob,1.8,0,7); ctx.arc(5,-18+wob,1.8,0,7); ctx.fill();
+    ctx.fillStyle='#ffd23f'; ctx.beginPath(); ctx.ellipse((n.vx>0?10:-10),-20+wob,6,6,0,0,7); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc((n.vx>0?11:-11),-21+wob,2.4,0,7); ctx.fill();
+    ctx.fillStyle='#222'; ctx.beginPath(); ctx.arc((n.vx>0?11.6:-11.6),-21+wob,1.2,0,7); ctx.fill();
+    ctx.fillStyle='#7a4a1e'; ctx.fillRect(-8,-2,5,3); ctx.fillRect(3,-2,5,3);
+  } else if(n.tipo==='pinguino'){
+    ctx.fillStyle='#22242e'; ctx.beginPath(); ctx.ellipse(0,-13+wob,14,13,0,0,7); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.ellipse(0,-11+wob,9,10,0,0,7); ctx.fill();
+    ctx.fillStyle='#22242e'; ctx.beginPath(); ctx.arc(0,-26+wob,10,0,7); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(-3.5,-27+wob,3.4,0,7); ctx.arc(3.5,-27+wob,3.4,0,7); ctx.fill();
+    ctx.fillStyle='#222'; ctx.beginPath(); ctx.arc(-3.5,-27+wob,1.7,0,7); ctx.arc(3.5,-27+wob,1.7,0,7); ctx.fill();
+    ctx.fillStyle='#ff9f1a'; ctx.beginPath(); ctx.moveTo(-3,-23.5+wob); ctx.lineTo(3,-23.5+wob); ctx.lineTo(0,-20.5+wob); ctx.fill();
+    ctx.fillStyle='#22242e';
+    ctx.beginPath(); ctx.ellipse(-13,-13+wob,4,8,0.4,0,7); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(13,-13+wob,4,8,-0.4,0,7); ctx.fill();
+    ctx.fillStyle='#ff9f1a'; ctx.fillRect(-9,-3,7,3); ctx.fillRect(2,-3,7,3);
+    ctx.fillStyle='#c0392b'; ctx.fillRect(-8,-21+wob,16,3.4);
+  } else if(n.tipo==='pikachu'){
+    ctx.fillStyle='#f7d038'; ctx.beginPath(); ctx.ellipse(0,-13+wob,15,12,0,0,7); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(0,-24+wob,11,9,0,0,7); ctx.fill();
+    ctx.fillStyle='#f7d038';
+    ctx.beginPath(); ctx.moveTo(-8,-30+wob); ctx.lineTo(-13,-42+wob); ctx.lineTo(-4,-33+wob); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(8,-30+wob); ctx.lineTo(13,-42+wob); ctx.lineTo(4,-33+wob); ctx.fill();
+    ctx.fillStyle='#222';
+    ctx.beginPath(); ctx.moveTo(-13,-42+wob); ctx.lineTo(-10,-35+wob); ctx.lineTo(-7,-38+wob); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(13,-42+wob); ctx.lineTo(10,-35+wob); ctx.lineTo(7,-38+wob); ctx.fill();
+    ctx.fillStyle='#e74c3c'; ctx.beginPath(); ctx.arc(-8,-22+wob,2.6,0,7); ctx.arc(8,-22+wob,2.6,0,7); ctx.fill();
+    ctx.fillStyle='#222'; ctx.beginPath(); ctx.arc(-3.5,-25+wob,2,0,7); ctx.arc(3.5,-25+wob,2,0,7); ctx.fill();
+    ctx.strokeStyle='#222'; ctx.lineWidth=1.4; ctx.beginPath(); ctx.moveTo(-1.5,-21+wob); ctx.lineTo(1.5,-21+wob); ctx.stroke();
+  } else if(n.tipo==='charmander'){
+    ctx.fillStyle='#ff8c42'; ctx.beginPath(); ctx.ellipse(0,-13+wob,14,12,0,0,7); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(0,-25+wob,11,10,0,0,7); ctx.fill();
+    ctx.fillStyle='#ffe8c9'; ctx.beginPath(); ctx.ellipse(0,-11+wob,8,8,0,0,7); ctx.fill();
+    ctx.strokeStyle='#ff8c42'; ctx.lineWidth=5; ctx.beginPath(); ctx.moveTo(-12,-10+wob); ctx.quadraticCurveTo(-22,-16+wob,-20,-26+wob); ctx.stroke();
+    const fl = 4+Math.sin(frame*0.3+n.anim)*2;
+    ctx.fillStyle='#ff9f1a'; ctx.beginPath(); ctx.ellipse(-20,-32+wob,4,fl+4,0,0,7); ctx.fill();
+    ctx.fillStyle='#ffd23f'; ctx.beginPath(); ctx.ellipse(-20,-33+wob,2.2,fl,0,0,7); ctx.fill();
+    ctx.fillStyle='#222'; ctx.beginPath(); ctx.arc(-3.5,-26+wob,2,0,7); ctx.arc(3.5,-26+wob,2,0,7); ctx.fill();
+  } else if(n.tipo==='squirtle'){
+    ctx.fillStyle='#5aa9e6'; ctx.beginPath(); ctx.ellipse(0,-13+wob,14,12,0,0,7); ctx.fill();
+    ctx.fillStyle='#8a5a2b'; ctx.beginPath(); ctx.ellipse(0,-13+wob,13,10,0,Math.PI*0.9,Math.PI*2.1); ctx.fill();
+    ctx.strokeStyle='#6e4520'; ctx.lineWidth=1.4; ctx.beginPath(); ctx.moveTo(-9,-18+wob); ctx.lineTo(9,-18+wob); ctx.stroke();
+    ctx.fillStyle='#5aa9e6'; ctx.beginPath(); ctx.ellipse(0,-25+wob,11,9.5,0,0,7); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(-3.5,-26+wob,2.6,0,7); ctx.arc(3.5,-26+wob,2.6,0,7); ctx.fill();
+    ctx.fillStyle='#222'; ctx.beginPath(); ctx.arc(-3.5,-26+wob,1.3,0,7); ctx.arc(3.5,-26+wob,1.3,0,7); ctx.fill();
+    ctx.strokeStyle='#222'; ctx.beginPath(); ctx.arc(0,-22.5+wob,2.4,0.15*Math.PI,0.85*Math.PI); ctx.stroke();
+  } else {
+    ctx.fillStyle='#7ec4a0'; ctx.beginPath(); ctx.ellipse(0,-12+wob,15,11,0,0,7); ctx.fill();
+    ctx.fillStyle='#4a9e4a'; ctx.beginPath(); ctx.arc(0,-22+wob,11,Math.PI,0); ctx.fill();
+    ctx.fillStyle='#3a7e3a'; ctx.beginPath(); ctx.arc(-4,-26+wob,2.4,0,7); ctx.arc(4,-23+wob,2.4,0,7); ctx.fill();
+    ctx.fillStyle='#7ec4a0'; ctx.beginPath(); ctx.ellipse(0,-24+wob,12,9.5,0,0,7); ctx.fill();
+    ctx.fillStyle='#7ec4a0';
+    ctx.beginPath(); ctx.moveTo(-10,-30+wob); ctx.lineTo(-14,-37+wob); ctx.lineTo(-6,-32+wob); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(10,-30+wob); ctx.lineTo(14,-37+wob); ctx.lineTo(6,-32+wob); ctx.fill();
+    ctx.fillStyle='#8a2b2b'; ctx.beginPath(); ctx.arc(-3.5,-25+wob,1.9,0,7); ctx.arc(3.5,-25+wob,1.9,0,7); ctx.fill();
+    ctx.strokeStyle='#2a5a3a'; ctx.lineWidth=1.2; ctx.beginPath(); ctx.arc(0,-21.5+wob,2.6,0.1*Math.PI,0.9*Math.PI); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+/* ---- VOLDEMORT ---- */
+function drawVoldemort(v){
+  ctx.save(); ctx.translate(v.x+v.w/2, v.y+v.h);
+  if(v.morto){
+    ctx.globalAlpha = Math.max(0, voldMortoTimer/110);
+    ctx.rotate((110-voldMortoTimer)*0.02);
+  }
+  const fluttua = v.morto ? 0 : Math.sin(frame*0.08)*1.5;
+  ctx.fillStyle='#16121f';
+  ctx.beginPath(); ctx.moveTo(-12,-40+fluttua); ctx.lineTo(12,-40+fluttua); ctx.lineTo(19,0); ctx.lineTo(-19,0); ctx.fill();
+  ctx.fillStyle='#e8e0d8'; ctx.beginPath(); ctx.arc(0,-48+fluttua,10,0,7); ctx.fill();
+  ctx.fillStyle='#c0392b'; ctx.beginPath(); ctx.arc(-3.5,-49+fluttua,1.8,0,7); ctx.arc(3.5,-49+fluttua,1.8,0,7); ctx.fill();
+  ctx.strokeStyle='#b0a89e'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(-1,-45+fluttua); ctx.lineTo(-2.5,-43+fluttua); ctx.moveTo(1,-45+fluttua); ctx.lineTo(2.5,-43+fluttua); ctx.stroke();
+  ctx.strokeStyle='#8a8278'; ctx.beginPath(); ctx.moveTo(-3,-41+fluttua); ctx.lineTo(3,-41+fluttua); ctx.stroke();
+  const braccio = v.castCd>120 ? -10 : -22;
+  ctx.strokeStyle='#16121f'; ctx.lineWidth=5; ctx.beginPath(); ctx.moveTo(8,-36+fluttua); ctx.lineTo(20,-30+braccio*0.3+fluttua); ctx.stroke();
+  ctx.strokeStyle='#5e4a30'; ctx.lineWidth=2.4; ctx.beginPath(); ctx.moveTo(20,-30+braccio*0.3+fluttua); ctx.lineTo(30,-36+braccio*0.3+fluttua); ctx.stroke();
+  if(!v.morto && v.castCd>130){
+    ctx.fillStyle='rgba(180,120,255,.8)'; ctx.beginPath(); ctx.arc(30,-36+braccio*0.3+fluttua,3+Math.sin(frame*0.4)*1.4,0,7); ctx.fill();
+  }
+  ctx.restore();
+}
+
+/* ---- AVATAR LORIS (costume a seconda del livello) ---- */
+function drawLoris(x, y, dir, walk, invuln, costume){
+  if(invuln>0 && Math.floor(frame/4)%2===0) return;
+  ctx.save(); ctx.translate(x+13,y); ctx.scale(dir,1);
+  const gamba = Math.sin(walk)*5;
+  const SKIN='#f2c9a4';
+  if(costume==='mario' || costume==='ice'){
+    const ICE = costume==='ice';
+    const cappello = ICE ? '#f4f6f8' : '#e52521';
+    const maglia   = ICE ? '#f4f6f8' : '#e52521';
+    const salopette= ICE ? '#6db9f0' : '#2456c4';
+    const scarpe   = ICE ? '#2a4a6a' : '#7a4a1e';
+    // gambe e scarpe
+    ctx.fillStyle=scarpe;
+    ctx.fillRect(-9,32+Math.max(0,gamba),8,12-Math.max(0,gamba));
+    ctx.fillRect(2,32+Math.max(0,-gamba),8,12-Math.max(0,-gamba));
+    // salopette
+    ctx.fillStyle=salopette; roundRect(-13,12,27,22,6); ctx.fill();
+    ctx.fillStyle=salopette; ctx.fillRect(-11,12,6,12); ctx.fillRect(6,12,6,12);
+    // bottoni
+    ctx.fillStyle=ICE?'#fff':'#f7c948'; ctx.beginPath(); ctx.arc(-6,17,2.4,0,7); ctx.arc(7,17,2.4,0,7); ctx.fill();
+    // braccia
+    ctx.fillStyle=maglia;
+    ctx.fillRect(-16,14+gamba*0.6,5,14); ctx.fillRect(12,14-gamba*0.6,5,14);
+    ctx.fillStyle=SKIN; ctx.fillRect(-16,24+gamba*0.6,5,5); ctx.fillRect(12,24-gamba*0.6,5,5);
+    // faccia
+    ctx.fillStyle=SKIN; ctx.beginPath(); ctx.arc(1,2,11,0,7); ctx.fill();
+    // capelli laterali (sotto il cappello)
+    ctx.fillStyle='#4a2f1d';
+    ctx.beginPath(); ctx.arc(-9,2,4,0,7); ctx.arc(10,3,3.6,0,7); ctx.fill();
+    // occhi
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(-2.5,0,2.8,0,7); ctx.arc(6,0,2.8,0,7); ctx.fill();
+    ctx.fillStyle='#5a3a1e'; ctx.beginPath(); ctx.arc(-1.6,0,1.5,0,7); ctx.arc(6.9,0,1.5,0,7); ctx.fill();
+    // naso
+    ctx.fillStyle=SKIN; ctx.beginPath(); ctx.arc(2,4.5,3,0,7); ctx.fill();
+    // BAFFI (enormi, alla Mario)
+    ctx.fillStyle='#3a2412';
+    ctx.beginPath(); ctx.ellipse(-3.5,8,6,2.6,0.15,0,7); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(7,8,6,2.6,-0.15,0,7); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(1.8,8,3,2.2,0,0,7); ctx.fill();
+    // bocca sotto i baffi
+    ctx.strokeStyle='#7a4a2a'; ctx.lineWidth=1.2; ctx.beginPath(); ctx.arc(2,11,3,0.2*Math.PI,0.8*Math.PI); ctx.stroke();
+    // cappello
+    ctx.fillStyle=cappello;
+    ctx.beginPath(); ctx.arc(0,-4,11.5,Math.PI,0); ctx.fill();
+    ctx.fillRect(-13.5,-5.5,27,4);
+    if(ICE){ ctx.fillStyle='#e52521'; ctx.fillRect(-13.5,-5.5,27,2.4); }
+    // stemma
+    ctx.fillStyle=ICE ? '#2456c4' : '#fff';
+    ctx.beginPath(); ctx.arc(1,-9,4,0,7); ctx.fill();
+    ctx.fillStyle=ICE ? '#fff' : '#e52521';
+    ctx.font='bold 6.5px "Courier New",monospace'; ctx.textAlign='center'; ctx.fillText('L',1,-6.6); ctx.textAlign='left';
+    if(ICE){ // sciarpa natalizia
+      ctx.fillStyle='#c0392b'; ctx.fillRect(-10,10,21,4);
+      ctx.fillStyle='#fff'; ctx.fillRect(-10,11.6,21,1.2);
+    }
+  } else if(costume==='ash'){
+    // ASH KETCHUM
+    ctx.fillStyle='#fff'; // sneakers
+    ctx.fillRect(-9,40,9,5); ctx.fillRect(2,40,9,5);
+    ctx.fillStyle='#e52521'; ctx.fillRect(-9,40,9,2); ctx.fillRect(2,40,9,2);
+    ctx.fillStyle='#2e5f9e'; // jeans
+    ctx.fillRect(-9,28+Math.max(0,gamba),8,13-Math.max(0,gamba));
+    ctx.fillRect(2,28+Math.max(0,-gamba),8,13-Math.max(0,-gamba));
+    ctx.fillStyle='#2e6fd0'; // giacca
+    roundRect(-13,10,27,20,6); ctx.fill();
+    ctx.fillStyle='#fff'; // t-shirt
+    ctx.beginPath(); ctx.moveTo(-6,10); ctx.lineTo(8,10); ctx.lineTo(1,22); ctx.fill();
+    // tasca giacca
+    ctx.fillStyle='#2456a8'; ctx.fillRect(6,16,6,6);
+    // braccia
+    ctx.fillStyle='#2e6fd0';
+    ctx.fillRect(-16,12+gamba*0.6,5,14); ctx.fillRect(12,12-gamba*0.6,5,14);
+    ctx.fillStyle=SKIN; ctx.fillRect(-16,22+gamba*0.6,5,5); ctx.fillRect(12,22-gamba*0.6,5,5);
+    // faccia
+    ctx.fillStyle=SKIN; ctx.beginPath(); ctx.arc(1,1,11,0,7); ctx.fill();
+    // capelli neri spettinati (visibili ai lati)
+    ctx.fillStyle='#1a1a1a';
+    const punte=[[-10,-4],[-7,-9],[-2,-11],[4,-11],[9,-8],[11,-3],[-12,1]];
+    for(const pt of punte){ ctx.beginPath(); ctx.moveTo(pt[0],pt[1]); ctx.lineTo(pt[0]+2.4,pt[1]+6); ctx.lineTo(pt[0]-2.4,pt[1]+5); ctx.fill(); }
+    // occhi (senza baffi!)
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(-2.5,0,3,0,7); ctx.arc(6,0,3,0,7); ctx.fill();
+    ctx.fillStyle='#2a2a2a'; ctx.beginPath(); ctx.arc(-1.6,0,1.6,0,7); ctx.arc(6.9,0,1.6,0,7); ctx.fill();
+    ctx.strokeStyle='#8a5a3a'; ctx.lineWidth=1.2; ctx.beginPath(); ctx.arc(2,7,3.4,0.15*Math.PI,0.85*Math.PI); ctx.stroke();
+    // cappello da Allenatore: davanti bianco con logo verde, dietro rosso
+    ctx.fillStyle='#e52521'; ctx.beginPath(); ctx.arc(0,-5,11.5,Math.PI,0); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(0,-6,8,Math.PI*0.95,Math.PI*2.05); ctx.fill();
+    ctx.fillStyle='#e52521'; ctx.fillRect(-14,-6,28,3.6);
+    ctx.fillStyle='#2e8b57'; // logo "L" verde stilizzato
+    ctx.beginPath(); ctx.moveTo(-3,-12); ctx.lineTo(3,-12); ctx.lineTo(1,-8); ctx.lineTo(-1,-8); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(-3,-12); ctx.lineTo(-1,-8); ctx.lineTo(-4,-6); ctx.lineTo(-6,-9); ctx.fill();
+  } else {
+    // HARRY POTTER (tema finale)
+    ctx.fillStyle='#16161c'; // scarpe
+    ctx.fillRect(-9,32+Math.max(0,gamba),8,12-Math.max(0,gamba));
+    ctx.fillRect(2,32+Math.max(0,-gamba),8,12-Math.max(0,-gamba));
+    ctx.fillStyle='#2a2a35'; // mantello nero
+    ctx.beginPath(); ctx.moveTo(-12,-30); ctx.lineTo(12,-30); ctx.lineTo(18,0); ctx.lineTo(-18,0); ctx.fill();
+    ctx.fillStyle='#7f0909'; // bordo interno Grifondoro
+    ctx.beginPath(); ctx.moveTo(-6,-28); ctx.lineTo(6,-28); ctx.lineTo(8,0); ctx.lineTo(-8,0); ctx.fill();
+    ctx.fillStyle='#d3a625';
+    ctx.beginPath(); ctx.moveTo(-3,-28); ctx.lineTo(3,-28); ctx.lineTo(4,0); ctx.lineTo(-4,0); ctx.fill();
+    // sciarpa Grifondoro
+    ctx.fillStyle='#7f0909'; ctx.fillRect(-11,-27,23,5);
+    ctx.fillStyle='#d3a625'; ctx.fillRect(-11,-25.4,23,1.6);
+    ctx.fillStyle='#d3a625'; ctx.beginPath(); ctx.moveTo(4,-22); ctx.lineTo(9,-22); ctx.lineTo(8,-12); ctx.lineTo(5,-12); ctx.fill();
+    // braccia + bacchetta
+    ctx.fillStyle='#2a2a35';
+    ctx.fillRect(-16,-+gamba*0.6,5,16); ctx.fillRect(12,-24-gamba*0.6,5,16);
+    ctx.fillStyle=SKIN; ctx.fillRect(-16,-10+gamba*0.6,5,4); ctx.fillRect(12,-10-gamba*0.6,5,4);
+    ctx.strokeStyle='#6e4a2a'; ctx.lineWidth=2.2; ctx.beginPath(); ctx.moveTo(14,-7); ctx.lineTo(24,-14); ctx.stroke();
+    if(frame%20<10){ ctx.fillStyle='rgba(255,240,180,.85)'; ctx.beginPath(); ctx.arc(24,-14,2.2,0,7); ctx.fill(); }
+    // faccia
+    ctx.fillStyle=SKIN; ctx.beginPath(); ctx.arc(1,-36,10.5,0,7); ctx.fill();
+    // capelli neri scompigliati
+    ctx.fillStyle='#141414';
+    const ciocche=[[-9,-42],[-5,-47],[1,-49],[7,-46],[10,-41],[-11,-38],[11,-38]];
+    for(const c of ciocche){ ctx.beginPath(); ctx.moveTo(c[0],c[1]); ctx.lineTo(c[0]+2.6,c[1]+7); ctx.lineTo(c[0]-2.6,c[1]+6); ctx.fill(); }
+    // cicatrice a saetta
+    ctx.strokeStyle='#b03a2e'; ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.moveTo(3,-45); ctx.lineTo(0.5,-42); ctx.lineTo(4,-41); ctx.lineTo(1.5,-38); ctx.stroke();
+    // occhiali tondi
+    ctx.strokeStyle='#222'; ctx.lineWidth=1.6;
+    ctx.beginPath(); ctx.arc(-3,-36,3.6,0,7); ctx.stroke();
+    ctx.beginPath(); ctx.arc(5,-36,3.6,0,7); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0.6,-36); ctx.lineTo(1.4,-36); ctx.stroke();
+    ctx.fillStyle='#2a2a2a'; ctx.beginPath(); ctx.arc(-2,-36,1.4,0,7); ctx.arc(6,-36,1.4,0,7); ctx.fill();
+    // nasino + bocca
+    ctx.fillStyle='rgba(200,120,90,.5)'; ctx.beginPath(); ctx.arc(-6,-33.5,1.8,0,7); ctx.arc(8,-33.5,1.8,0,7); ctx.fill();
+    ctx.strokeStyle='#8a5a3a'; ctx.lineWidth=1.1; ctx.beginPath(); ctx.arc(1,-32,2.8,0.2*Math.PI,0.8*Math.PI); ctx.stroke();
+  }
+  ctx.restore();
+}
+function roundRect(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+
+/* ---- PRINCIPESSA STELLA ---- */
+function drawStella(x, y, libera){
+  ctx.save(); ctx.translate(x,y);
+  const dondola = Math.sin(frame*0.06)*2;
+  ctx.translate(0, dondola);
+  ctx.fillStyle='#3e5c43'; ctx.beginPath(); ctx.moveTo(-14,-26); ctx.lineTo(14,-26); ctx.lineTo(19,0); ctx.lineTo(-19,0); ctx.fill();
+  ctx.fillStyle='#fff'; ctx.fillRect(-8,-32,16,8);
+  ctx.fillStyle='#e8e2d4'; ctx.beginPath(); ctx.moveTo(-8,-32); ctx.lineTo(0,-25); ctx.lineTo(8,-32); ctx.fill();
+  ctx.fillStyle='#f6d7b8'; ctx.fillRect(-17,-30,5,14); ctx.fillRect(12,-30,5,14);
+  ctx.fillStyle='#f6d7b8'; ctx.beginPath(); ctx.arc(0,-40,10,0,7); ctx.fill();
+  ctx.fillStyle='#d9b36c';
+  ctx.beginPath(); ctx.arc(0,-46,11,Math.PI*0.95,Math.PI*2.05); ctx.fill();
+  const onde=[[-11,-38],[-12,-30],[-10,-22],[11,-38],[12,-30],[10,-22]];
+  for(const o of onde){ ctx.beginPath(); ctx.arc(o[0],o[1],4,0,7); ctx.fill(); }
+  ctx.fillRect(-12,-44,4,22); ctx.fillRect(8,-44,4,22);
+  ctx.strokeStyle='#4a7c59'; ctx.lineWidth=2.6; ctx.beginPath(); ctx.arc(0,-48,12,Math.PI*1.15,Math.PI*1.85); ctx.stroke();
+  ctx.fillStyle='#f0f0e8';
+  for(let i=0;i<5;i++){ const a=Math.PI*(1.15+ i*0.175); ctx.beginPath(); ctx.arc(Math.cos(a)*12,-48+Math.sin(a)*12,1.8,0,7); ctx.fill(); }
+  ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(-3.5,-40,2.6,0,7); ctx.arc(4,-40,2.6,0,7); ctx.fill();
+  ctx.fillStyle='#5a4632'; ctx.beginPath(); ctx.arc(-3,-40,1.4,0,7); ctx.arc(4.5,-40,1.4,0,7); ctx.fill();
+  ctx.strokeStyle='#b0624a'; ctx.lineWidth=1.2; ctx.beginPath(); ctx.arc(0.5,-37,3.6,0.2*Math.PI,0.8*Math.PI); ctx.stroke();
+  ctx.fillStyle='rgba(240,130,130,.4)'; ctx.beginPath(); ctx.arc(-6.5,-36,2,0,7); ctx.arc(7,-36,2,0,7); ctx.fill();
+  ctx.fillStyle='#f7f3ea'; ctx.beginPath(); ctx.arc(9,-24,4.6,0,7); ctx.fill();
+  ctx.fillStyle='#c0392b'; ctx.beginPath(); ctx.arc(7.6,-25.5,1.2,0,7); ctx.fill();
+  ctx.fillStyle='#2e5f9e'; ctx.beginPath(); ctx.arc(10.4,-25.5,1.2,0,7); ctx.fill();
+  ctx.fillStyle='#2e8b57'; ctx.beginPath(); ctx.arc(9,-22.6,1.2,0,7); ctx.fill();
+  ctx.restore();
+  if(!libera){
+    ctx.save(); ctx.translate(x, y+dondola);
+    ctx.strokeStyle='#f7c948'; ctx.lineWidth=3.4;
+    for(let i=-2;i<=2;i++){ ctx.beginPath(); ctx.moveTo(i*9,-68); ctx.lineTo(i*9,0); ctx.stroke(); }
+    ctx.beginPath(); ctx.arc(0,-68,21,Math.PI,0); ctx.stroke();
+    ctx.fillStyle='#f7c948'; ctx.beginPath(); ctx.arc(0,-68,4,0,7); ctx.fill();
+    ctx.restore();
+  } else {
+    ctx.font='18px serif'; ctx.fillText('💛', x+18, y-64);
+  }
+}
+
+/* ================= CONFETTI ================= */
+function lanciaConfetti(){
+  const c = document.getElementById('confetti-canvas'); c.style.display='block';
+  c.width = innerWidth; c.height = innerHeight;
+  const cc = c.getContext('2d');
+  const pezzi = [];
+  const colori = ['#e52521','#f7c948','#4a7c59','#2e3d5c','#ff9ff3','#63b4ff'];
+  for(let i=0;i<220;i++) pezzi.push({x:Math.random()*c.width, y:-20-Math.random()*c.height*0.5, vx:(Math.random()-.5)*3, vy:2+Math.random()*3, r:Math.random()*6+3, colore:colori[i%colori.length], rot:Math.random()*6, vr:(Math.random()-.5)*0.2});
+  let t=0;
+  (function anim(){
+    cc.clearRect(0,0,c.width,c.height);
+    for(const p of pezzi){ p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; p.vy+=0.02;
+      cc.save(); cc.translate(p.x,p.y); cc.rotate(p.rot); cc.fillStyle=p.colore; cc.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.6); cc.restore(); }
+    t++;
+    if(t<360) requestAnimationFrame(anim); else c.style.display='none';
+  })();
+}
+
+/* ================= INPUT ================= */
+addEventListener('keydown', e=>{
+  if([' ','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) e.preventDefault();
+  tasti[e.key]=true;
+  if(e.key==='m'||e.key==='M'){ audioOn=!audioOn; musicOn=audioOn; if(ytMode&&ytPlayer){ if(musicOn&&audioOn){ytPlayer.unMute(); ytPlayer.playVideo();} else ytPlayer.pauseVideo(); } }
+  if((e.key==='r'||e.key==='R') && !running) restart();
+});
+addEventListener('keyup', e=>{ tasti[e.key]=false; });
+function bindTouch(id, key){ const el=document.getElementById(id);
+  const on=e=>{e.preventDefault(); tasti[key]=true;}, off=e=>{e.preventDefault(); tasti[key]=false;};
+  el.addEventListener('touchstart',on); el.addEventListener('touchend',off); el.addEventListener('touchcancel',off);
+  el.addEventListener('mousedown',on); el.addEventListener('mouseup',off); el.addEventListener('mouseleave',off);
+}
+bindTouch('t-left','ArrowLeft'); bindTouch('t-right','ArrowRight'); bindTouch('t-jump',' ');
+
+/* ================= REGALO & COUNTDOWN ================= */
+function rivelaRegalo(){ 
+  const btn = document.getElementById('btn-sblocca');
+  if (btn.disabled) return; // Impedisce l'apertura se è ancora bloccato
+  
+  document.getElementById('regalo-box').classList.add('rivelato'); 
+  ensureAudio(); 
+  suonoVittoria(); 
+  lanciaConfetti(); 
+}
+
+function tick(){
+  const target = new Date('2026-12-19T00:00:00');
+  let diff = Math.max(0, target - new Date());
+  
+  const g = Math.floor(diff/86400000); let rem = diff % 86400000;
+  const h = Math.floor(rem/3600000); rem %= 3600000;
+  const m = Math.floor(rem/60000); 
+  const s = Math.floor((rem % 60000) / 1000);
+  
+  // Aggiorna i numeri del countdown se presenti nella pagina
+  if(document.getElementById('cd-g')) {
+    document.getElementById('cd-g').textContent = g;
+    document.getElementById('cd-h').textContent = h;
+    document.getElementById('cd-m').textContent = m;
+    document.getElementById('cd-s').textContent = s;
+  }
+  
+  // Controlla se il countdown è finito (diff === 0)
+  if (diff <= 0) {
+    const btnSblocca = document.getElementById('btn-sblocca');
+    const cdTesto = document.getElementById('cd-testo');
+    const lucchetto = document.getElementById('lucchetto-icon');
+    
+    if (btnSblocca && btnSblocca.disabled) {
+      btnSblocca.disabled = false; // Sblocca il pulsante
+      btnSblocca.textContent = "🔓 Sblocca il regalo!";
+    }
+    if (cdTesto) {
+      cdTesto.textContent = "🎉 È arrivato il 19/12! Il regalo è finalmente disponibile!";
+    }
+    if (lucchetto) {
+      lucchetto.textContent = "✨";
+    }
+  } else {
+    setTimeout(tick, 1000);
+  }
+}
+
+tick();
+caricaLivello(0);
+draw();
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  
+      const immagini = document.querySelectorAll(
+          "#track-galleria .polaroid img"
+      );
+  
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = document.getElementById("lightbox-img");
+  
+      immagini.forEach(function(img) {
+  
+          img.addEventListener("click", function() {
+  
+              lightboxImg.src = this.src;
+              lightboxImg.alt = this.alt;
+  
+              lightbox.classList.add("active");
+  
+              document.body.style.overflow = "hidden";
+  
+          });
+  
+      });
+  
+  });
+  
+  function chiudiLightbox() {
+  
+      const lightbox = document.getElementById("lightbox");
+  
+      lightbox.classList.remove("active");
+  
+      document.body.style.overflow = "";
+  
+  }
+  
+  document.addEventListener("keydown", function(e) {
+  
+      if (e.key === "Escape") {
+          chiudiLightbox();
+      }
+  
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{
+    "site": {
+      "title": "Buon compleanno Loris!",
+      "boyName": "Loris",
+      "girlName": "Stella",
+      "age": 27,
+      "birthdayLabel": "12 novembre 2026"
+    },
+  
+    "gift": {
+      "_nota": "unlock: 'both' = serve aver finito il gioco E aver raggiunto la data; 'date' = solo data; 'game' = solo gioco; 'either' = una delle due. unlockAt: ATTENZIONE al fuso orario (+01:00 = Italia/Francia in inverno, +11:00 = Sydney).",
+      "unlock": "both",
+      "unlockAt": "2026-11-12T00:00:00+01:00",
+      "title": "Il tuo regalo è...",
+      "text": "SCRIVI QUI IL REGALO! Ad esempio: un viaggio per due, i biglietti del concerto, una console nuova... Questo testo resta sul server finché non si sblocca.",
+      "image": "",
+      "linkLabel": "",
+      "linkUrl": ""
+    },
+  
+    "game": {
+      "story": [
+        "Il 12 novembre e' il compleanno di Loris, e Stella gli ha preparato una sorpresa speciale.",
+        "Ma Re Lunedi', nemico giurato delle feste, ha rapito Stella e l'ha portata nel suo castello!",
+        "Aiuta Loris ad attraversare 4 mondi: viaggi, musica, game night e magia. Stella ti aspetta!"
+      ],
+      "levelNames": ["VIAGGIO", "CONCERTO", "GAME NIGHT", "CASTELLO"],
+      "levelNotes": [
+        "Hai gia' fatto un bel pezzo di strada! Il viaggio piu' bello e' quello insieme. Ti aspetto! - Stella",
+        "Alza il volume! Ti dedico ogni canzone, ovunque tu sia. Non mollare! - Stella",
+        "Ancora una partita e poi sono tutta tua. Il castello e' qui vicino! - Stella"
+      ],
+      "finalTitle": "TANTI AUGURI LORIS!",
+      "finalMessage": "Mi hai salvata dal Re Lunedi'... ma sei tu a rendere speciale ogni mio giorno. 27 anni di meraviglia: che sia l'inizio del tuo livello piu' bello! Ti amo. - Stella"
+    },
+  
+    "playlist": {
+      "title": "La colonna sonora di Loris",
+      "description": "Le canzoni che parlano di te, dei viaggi, delle serate con gli amici.",
+      "spotifyEmbedUrl": "",
+      "tracks": []
+    },
+  
+    "gallery": {
+      "captions": {
+        "01-loris.jpg": "Il nostro protagonista"
+      }
+    }
+  }
